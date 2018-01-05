@@ -1,0 +1,11 @@
+@media (min-width: 800px) {
+   .dialog {
+      position: absolute;
+      top: 0px;
+      left: 320px;
+      font-weight: normal;
+      word-wrap: normal;
+      width: 100%;
+      min-width: 408px;
+   }
+}

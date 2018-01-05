@@ -1,0 +1,33 @@
+.flex-container {
+   display: flex;
+   flex-direction: row;
+}
+
+.left-rail {
+   background-color: lightgray;
+   flex: 0 0 59px;
+}
+
+.left-gutter {
+   background-color: gray;
+   flex: 2 2 auto;
+}
+
+.avatar-rail {
+   flex: 0 0 173px;
+}
+
+.form-rail {
+   flex: 0 0 307px;
+}
+
+.dialogue-rail {
+   background-color: lightgray;
+   flex: 0 1 470px;
+}
+
+.right-gutter {
+   background-color: gray;
+   flex: 6 6 auto;
+}
+
