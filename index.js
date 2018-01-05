@@ -11,9 +11,9 @@ import './css/flex-container.css';
 import './css/dialog.css';
 
 // routes
-import Login  from './routes/login';
-import Home from './routes/home';
-import Signup from './routes/signup';
+import Login  from './routes/login/';
+import Home from './routes/home/';
+import Signup from './routes/signup/';
 
 // get that navbar
 import NavBar from './components/navbar';
