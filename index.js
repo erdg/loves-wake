@@ -14,6 +14,7 @@ import './css/dialog.css';
 import Login  from './routes/login/';
 import Home from './routes/home/';
 import Signup from './routes/signup/';
+import ConfirmAccount from './routes/confirm-account/';
 
 // get that navbar
 import NavBar from './components/navbar';
@@ -27,6 +28,7 @@ export default class App extends Component {
                <Home path="/" />
                <Login path="/login" />
                <Signup path="/signup" />
+               <ConfirmAccount path="/confirm-account" />
             </Router>
          </div>
 		);

@@ -12,6 +12,27 @@ const EmailInput = (props) => (
    </div>
 )
 
+const TextInput = ({ label, ...props}) => (
+   <div>
+      <label class="form-label">
+         {props.label}
+      </label>
+      <input
+         {...props}
+         type="text"
+         class="form-input"
+      />
+   </div>
+)
+
+const NumberInput = (props) => (
+   <input 
+      {...props}
+      type="number"
+      class="form-input"
+   />
+)
+
 class PasswordInput extends Component {
 
    constructor (props) {
@@ -60,4 +81,4 @@ const ShowPasswordSwitch = (props) => (
    </div>
 )
 
-export { EmailInput, PasswordInput };
+export { EmailInput, TextInput, NumberInput, PasswordInput };
