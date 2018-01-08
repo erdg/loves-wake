@@ -16,7 +16,8 @@ class LoginFormContainer extends Component {
          showPassword: false,
          serverError: '',
          showServerError: false,
-         loading: false
+         loading: false,
+         loginSuccess: false
       };
    }
 
@@ -26,6 +27,7 @@ class LoginFormContainer extends Component {
    }
 
    _handleLogin = () => {
+      // loading spinner on button
       this.setState({ loading: true });
 
       fetch("https://erikdgustafson.com/api/!loginUser?"
@@ -39,14 +41,25 @@ class LoginFormContainer extends Component {
       .then( (json) => {
          if (json.error) {
             this.setState({ 
+               // display errors and remove loading spinner
                serverError: json.error, 
                showServerError: true,
                loading: false
             });
 
          } else if (json.token) {
+            // remove loading spinner
+            // set loginSuccess flag to true to trigger route change to 'Profile'
+            // FIXME - the above feels like a hack. 
+            // might be time to add a redux-style store?
+            this.setState({ loading: false, loginSuccess: true});
+            // send event up to set global app state with logged in user
             this.props.handleLoginSuccess(json.user, json.token);
-            this.setState({ loading: false });
+         }
+      })
+      .then( () => {
+         if (this.state.loginSuccess) {
+            route('/profile', true);
          }
       });
 
