@@ -5,7 +5,7 @@ import { LoginForm } from './login-form';
 class LoginFormContainer extends Component { 
    constructor (props) {
       super(props);
-      this._handleLogin = this._handleLogin.bind(this);
+      // this._handleLogin = this._handleLogin.bind(this);
       this._handleEmailChange = this._handleEmailChange.bind(this);
       this._handlePasswordChange = this._handlePasswordChange.bind(this);
       this._toggleShowPassword = this._toggleShowPassword.bind(this);
@@ -14,7 +14,8 @@ class LoginFormContainer extends Component {
          password: '',
          showPassword: false,
          serverError: '',
-         showServerError: false
+         showServerError: false,
+         loading: false
       };
    }
 
@@ -23,7 +24,32 @@ class LoginFormContainer extends Component {
       this.setState({ showPassword });
    }
 
-   _handleLogin () {
+   _handleLogin = () => {
+      this.setState({ loading: true });
+
+      fetch("https://erikdgustafson.com/api/!loginUser?"
+         + this.state.email
+         + "&"
+         + this.state.password
+      )
+      .then( (resp) => {
+         return resp.json();
+      })
+      .then( (json) => {
+         if (json.error) {
+            this.setState({ 
+               serverError: json.error, 
+               showServerError: true,
+               loading: false
+            });
+
+         } else if (json.token) {
+            alert("User logged in with token: " + json.token);
+         }
+      });
+
+      this.setState({ email: '', password: '' });
+
    }
 
    _handleEmailChange (e) {
@@ -49,6 +75,10 @@ class LoginFormContainer extends Component {
 
             toggleShowPassword={ this._toggleShowPassword }
             showPassword={ this.state.showPassword }
+
+            handleLogin={ this._handleLogin }
+
+            loading={ this.state.loading }
 
          />
       )

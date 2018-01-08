@@ -1,4 +1,5 @@
 import { Component } from 'preact';
+import classNames from 'classnames';
 
 import { EmailInput, PasswordInput } from './login-form-inputs';
 import { Dialog } from '../../../components/dialog';
@@ -6,6 +7,13 @@ import { Toast } from '../../../components/toast';
 
 class LoginForm extends Component {
    render (props) {
+      let btnClasses = classNames(
+         'btn', 
+         'btn-primary',
+         {
+            'loading': props.loading
+         }
+      );
       return (
          <div class="form-group m-2">
 
@@ -28,7 +36,10 @@ class LoginForm extends Component {
             />
 
             <div class="row">
-               <button class="btn btn-primary">
+               <button 
+                  class={ btnClasses }
+                  onClick={ props.handleLogin }
+               >
                   Login
                </button>
                <button class="btn btn-link float-right">
