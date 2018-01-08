@@ -44,7 +44,8 @@ class LoginFormContainer extends Component {
             });
 
          } else if (json.token) {
-            alert("User logged in with token: " + json.token);
+            this.props.handleLoginSuccess(json.user, json.token);
+            this.setState({ loading: false });
          }
       });
 

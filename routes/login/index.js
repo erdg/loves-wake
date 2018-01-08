@@ -4,9 +4,15 @@ import { FlexContainer } from '../../components/flex-container';
 import { LoginFormContainer } from './components/login-form-container';
 
 class Login extends Component {
-   render () {
+   render (props) {
       return (
-         <FlexContainer formRail={ <LoginFormContainer /> } />
+         <FlexContainer 
+            formRail={ 
+               <LoginFormContainer 
+                  handleLoginSuccess={ (user, token) => props.handleLoginSuccess(user, token) }
+               /> 
+            } 
+         />
       );
    }
 }
