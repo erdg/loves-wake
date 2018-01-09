@@ -4,9 +4,16 @@ import { FlexContainer } from '../../components/flex-container';
 import { ConfirmAccountFormContainer } from './components/confirm-account-form-container';
 
 class ConfirmAccount extends Component {
-   render () {
+   render (props) {
       return (
-         <FlexContainer formRail={ <ConfirmAccountFormContainer /> } />
+         <FlexContainer 
+            formRail={ 
+               <ConfirmAccountFormContainer 
+                  email={ props.email }
+                  handleLoginSuccess={ (user, token) => props.handleLoginSuccess(user, token) }
+               /> 
+            } 
+         />
       );
    }
 }

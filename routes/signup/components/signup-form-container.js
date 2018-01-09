@@ -1,11 +1,12 @@
 import { h, Component } from 'preact';
+import { route } from 'preact-router';
 
 import { SignupForm } from './signup-form';
 
 class SignupFormContainer extends Component { 
    constructor (props) {
       super(props);
-      this._handleLogin = this._handleLogin.bind(this);
+      this._handleSignup = this._handleSignup.bind(this);
       this._handleEmailChange = this._handleEmailChange.bind(this);
       this._handlePasswordChange = this._handlePasswordChange.bind(this);
       this._toggleShowPassword = this._toggleShowPassword.bind(this);
@@ -14,7 +15,9 @@ class SignupFormContainer extends Component {
          password: '',
          showPassword: false,
          serverError: '',
-         showServerError: false
+         showServerError: false,
+         loading: false,
+         signupSuccess: false
       };
    }
 
@@ -23,7 +26,38 @@ class SignupFormContainer extends Component {
       this.setState({ showPassword });
    }
 
-   _handleLogin () {
+   _handleSignup () {
+      this.setState({ loading: true });
+
+      fetch("https://erikdgustafson.com/api/!newUser?"
+         + this.state.email
+         + "&"
+         + this.state.password,
+         { method: "POST" }
+      )
+      .then( (resp) => {
+         return resp.json();
+      })
+      .then( (json) => {
+         if (json.error) {
+            this.setState({ 
+               // display errors and remove loading spinner
+               serverError: json.error, 
+               showServerError: true,
+               loading: false
+            });
+         } else if (json.email) {
+            this.setState({ loading: false, signupSuccess: true });
+            this.props.handleSignupSuccess(json.email);
+         }
+      })
+      .then( () => {
+         if (this.state.signupSuccess) {
+            route('/confirm-account', true);
+         }
+      });
+
+      this.setState({ email: '', password: '' });
    }
 
    _handleEmailChange (e) {
@@ -49,6 +83,10 @@ class SignupFormContainer extends Component {
 
             toggleShowPassword={ this._toggleShowPassword }
             showPassword={ this.state.showPassword }
+
+            handleSignup={ this._handleSignup }
+
+            loading={ this.state.loading }
 
          />
       )

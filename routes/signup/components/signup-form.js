@@ -1,10 +1,18 @@
 import { Component } from 'preact';
+import classNames from 'classnames';
 
 import { EmailInput, PasswordInput } from './signup-form-inputs';
 import { Dialog } from '../../../components/dialog';
 
 class SignupForm extends Component {
    render (props) {
+       let btnClasses = classNames(
+         'btn', 
+         'btn-primary',
+         {
+            'loading': props.loading
+         }
+      );
       return (
          <div class="form-group m-2">
 
@@ -22,7 +30,10 @@ class SignupForm extends Component {
                showPassword={ props.showPassword }
             />
 
-            <button class="btn btn-primary">
+            <button 
+               class={ btnClasses }
+               onClick={ props.handleSignup }
+            >
                Create account
             </button>
 

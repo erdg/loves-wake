@@ -12,6 +12,12 @@ class ConfirmAccountForm extends Component {
             'has-error': props.hasError
          }
       );
+      let btnClasses = classNames(
+         'btn', 'btn-primary', 'centered', 'mt-2',
+         {
+            'loading': props.loading
+         }
+      );
       return (
          <div class={formClasses}>
 
@@ -39,7 +45,8 @@ class ConfirmAccountForm extends Component {
             </p>
 
             <button 
-               class="btn btn-primary centered mt-2"
+               class={ btnClasses }
+               onClick={ props.handleConfirmAccount }
             >
                Confirm Account
             </button>

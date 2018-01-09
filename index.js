@@ -23,13 +23,20 @@ import NavBar from './components/navbar';
 export default class App extends Component {
    state = {
       user: '',
-      loginToken: ''
+      loginToken: '',
+      email: ''
    }
 
    handleLoginSuccess = (user, token) => {
       this.setState({
          user: user,
          loginToken: token
+      });
+   }
+
+   handleSignupSuccess = (email) => {
+      this.setState({
+         email: email
       });
    }
 
@@ -43,8 +50,15 @@ export default class App extends Component {
                   path="/login" 
                   handleLoginSuccess={ this.handleLoginSuccess }
                />
-               <Signup path="/signup" />
-               <ConfirmAccount path="/confirm-account" />
+               <Signup 
+                  path="/signup" 
+                  handleSignupSuccess={ this.handleSignupSuccess }
+               />
+               <ConfirmAccount 
+                  path="/confirm-account" 
+                  email={ this.state.email }
+                  handleLoginSuccess={ this.handleLoginSuccess }
+               />
                <Profile path="/profile" />
             </Router>
          </div>
