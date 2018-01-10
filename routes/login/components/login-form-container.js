@@ -63,7 +63,8 @@ class LoginFormContainer extends Component {
          }
       });
 
-      this.setState({ email: '', password: '' });
+      // clear password
+      this.setState({ password: '' });
 
    }
 
