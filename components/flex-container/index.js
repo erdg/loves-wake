@@ -4,13 +4,13 @@ const FlexContainer = (props) => {
          <div class="left-rail hide-xs" />
          <div class="left-gutter" />
          <div class="avatar-rail hide-lg">
-            Avatar Rail
+            {props.avatarRail}
          </div>
          <div class="form-rail">
             {props.formRail}
          </div>
-         <div class="dialogue-rail hide-sm">
-            Dialogue Rail
+         <div class="dialog-rail hide-sm">
+            {props.dialogRail}
          </div>
          <div class="right-gutter" />
       </div>
