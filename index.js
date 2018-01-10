@@ -3,6 +3,7 @@ import { h, Component } from 'preact';
 
 // preact-router
 import Router from 'preact-router';
+import { route } from 'preact-router';
 
 // css
 import './css/spectre.min.css';
@@ -40,6 +41,14 @@ export default class App extends Component {
       });
    }
 
+   handleLogout = () => {
+      this.setState({
+         user: '',
+         loginToken: ''
+      });
+      route("/login", true);
+   }
+
 	render() {
 		return (
          <div>
@@ -59,7 +68,12 @@ export default class App extends Component {
                   email={ this.state.email }
                   handleLoginSuccess={ this.handleLoginSuccess }
                />
-               <Profile path="/profile" />
+               <Profile 
+                  path="/profile" 
+                  user={ this.state.user }
+                  loginToken={ this.state.loginToken }
+                  handleLogout={ this.handleLogout }
+               />
             </Router>
          </div>
 		);

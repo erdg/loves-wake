@@ -1,8 +1,19 @@
 import { h, Component } from 'preact';
 
-const Profile = () => {
+const Profile = (props) => {
    return (
-      <h1>Profile Page</h1>
+      <div>
+         <h1>Profile Page</h1>
+         <p> 
+            User '{props.user}' logged in with login token: '{props.loginToken}'
+         </p>
+         <button 
+            class="btn btn-primary"
+            onClick={ props.handleLogout }
+         >
+            Logout
+         </button>
+      </div>
    )
 }
 
