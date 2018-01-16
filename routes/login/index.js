@@ -10,6 +10,7 @@ class Login extends Component {
             formRail={ 
                <LoginFormContainer 
                   handleLoginSuccess={ (user, token) => props.handleLoginSuccess(user, token) }
+                  handleRecoverAccountSuccess={ (email) => props.handleRecoverAccountSuccess(email) }
                /> 
             } 
          />

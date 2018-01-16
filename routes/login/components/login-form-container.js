@@ -17,7 +17,8 @@ class LoginFormContainer extends Component {
          serverError: '',
          showServerError: false,
          loading: false,
-         loginSuccess: false
+         loginSuccess: false,
+         recoverAccountSuccess:false
       };
    }
 
@@ -68,6 +69,43 @@ class LoginFormContainer extends Component {
 
    }
 
+   _handleRecoverAccount = () => {
+      // loading spinner on button
+      this.setState({ loading: true });
+
+      fetch("https://erikdgustafson.com/api/!recoverUserAccount?"
+         + this.state.email
+      )
+      .then( (resp) => {
+         return resp.json();
+      })
+      .then( (json) => {
+         if (json.error) {
+            this.setState({ 
+               // display errors and remove loading spinner
+               serverError: json.error, 
+               showServerError: true,
+               loading: false
+            });
+
+         } else if (json.email) {
+            // remove loading spinner
+            // set loginSuccess flag to true to trigger route change to 'Profile'
+            // FIXME - the above feels like a hack. 
+            // might be time to add a redux-style store?
+            this.setState({ loading: false, recoverAccountSuccess: true});
+            // send event up to set global app state with logged in user
+            this.props.handleRecoverAccountSuccess(json.email);
+         }
+      })
+      .then( () => {
+         if (this.state.recoverAccountSuccess) {
+            route('/recover-account', true);
+         }
+      });
+
+   }
+
    _handleEmailChange (e) {
       this.setState({ email: e.target.value });
    }
@@ -95,6 +133,8 @@ class LoginFormContainer extends Component {
             handleLogin={ this._handleLogin }
 
             loading={ this.state.loading }
+
+            handleRecoverAccount={ this._handleRecoverAccount }
 
          />
       )

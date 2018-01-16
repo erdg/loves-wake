@@ -17,6 +17,8 @@ import Home from './routes/home/';
 import Signup from './routes/signup/';
 import ConfirmAccount from './routes/confirm-account/';
 import Profile from './routes/profile/';
+import RecoverAccount from './routes/recover-account/';
+import ResetPassword from './routes/reset-password/';
 
 // get that navbar
 import NavBar from './components/navbar';
@@ -25,23 +27,37 @@ export default class App extends Component {
    state = {
       user: '',
       loginToken: '',
-      email: ''
+      email: '',
+      confirmed: false
    }
 
-   handleLoginSuccess = (user, token) => {
+   _handleLoginSuccess = (user, token) => {
       this.setState({
          user: user,
          loginToken: token
       });
    }
 
-   handleSignupSuccess = (email) => {
+   _handleSignupSuccess = (email) => {
       this.setState({
          email: email
       });
    }
 
-   handleLogout = () => {
+   _handleRecoverAccountSuccess = (email) => {
+      this.setState({
+         email: email
+      });
+   }
+
+   _handleResetPasswordSuccess = (user, token) => {
+      this.setState({
+         user: user,
+         loginToken: token
+      });
+   }
+
+   _handleLogout = () => {
       this.setState({
          user: '',
          loginToken: ''
@@ -52,29 +68,50 @@ export default class App extends Component {
 	render() {
 		return (
          <div>
+
             <NavBar />
+
             <Router>
+
                <Home path="/" />
+
                <Login 
                   path="/login" 
-                  handleLoginSuccess={ this.handleLoginSuccess }
+                  handleLoginSuccess={ this._handleLoginSuccess }
+                  handleRecoverAccountSuccess={ this._handleRecoverAccountSuccess }
                />
+
+               <RecoverAccount
+                  path="/recover-account"
+                  email={ this.state.email }
+               />
+
+               <ResetPassword
+                  path="/reset-password"
+                  email={ this.state.email }
+                  handleResetPasswordSuccess={ this._handleResetPasswordSuccess }
+               />
+
                <Signup 
                   path="/signup" 
-                  handleSignupSuccess={ this.handleSignupSuccess }
+                  handleSignupSuccess={ this._handleSignupSuccess }
                />
+
                <ConfirmAccount 
                   path="/confirm-account" 
                   email={ this.state.email }
-                  handleLoginSuccess={ this.handleLoginSuccess }
+                  handleLoginSuccess={ this._handleLoginSuccess }
                />
+
                <Profile 
                   path="/profile" 
                   user={ this.state.user }
                   loginToken={ this.state.loginToken }
-                  handleLogout={ this.handleLogout }
+                  handleLogout={ this._handleLogout }
                />
+
             </Router>
+
          </div>
 		);
 	}

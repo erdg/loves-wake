@@ -6,14 +6,26 @@ import { Dialog } from '../../../components/dialog';
 import { Toast } from '../../../components/toast';
 
 class LoginForm extends Component {
+
    render (props) {
-      let btnClasses = classNames(
+
+      let loginBtnClasses = classNames(
          'btn', 
          'btn-primary',
          {
             'loading': props.loading
          }
       );
+
+      let recoverBtnClasses = classNames(
+         'btn',
+         'btn-link',
+         'float-right',
+         {
+            'loading': props.loading
+         }
+      );
+
       return (
          <div class="form-group m-2">
 
@@ -37,14 +49,18 @@ class LoginForm extends Component {
 
             <div class="row">
                <button 
-                  class={ btnClasses }
+                  class={ loginBtnClasses }
                   onClick={ props.handleLogin }
                >
                   Login
                </button>
-               <button class="btn btn-link float-right">
+               <button 
+                  class={ recoverBtnClasses }
+                  onClick={ props.handleRecoverAccount }
+               >
                   Recover account
                </button>
+
             </div>
 
          </div>
