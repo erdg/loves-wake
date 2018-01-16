@@ -57,7 +57,6 @@ class SignupFormContainer extends Component {
          }
       });
 
-      this.setState({ email: '', password: '' });
    }
 
    _handleEmailChange (e) {
@@ -66,6 +65,10 @@ class SignupFormContainer extends Component {
 
    _handlePasswordChange (e) {
       this.setState({ password: e.target.value });
+   }
+
+   componentWillUnmount () {
+      this.setState({ email: '', password: '' });
    }
 
    render () {
