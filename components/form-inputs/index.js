@@ -1,4 +1,4 @@
-import { Component } from 'preact';
+import { h, Component } from 'preact';
 
 const EmailInput = (props) => (
    <div>
@@ -49,11 +49,12 @@ class PasswordInput extends Component {
    }
 
    render (props) {
+      let label = props.label ? props.label : 'Password';
       return (
          <div>
 
             <label class="form-label">
-               Password
+               { label }
             </label>
             <input 
                {...props}
