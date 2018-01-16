@@ -923,12 +923,6 @@ var login_form__ref = Object(preact_min["h"])(
    'Login'
 );
 
-var login_form__ref2 = Object(preact_min["h"])(
-   'button',
-   { 'class': 'btn btn-link float-right' },
-   'Recover account'
-);
-
 var login_form_LoginForm = function (_Component) {
    login_form__inherits(LoginForm, _Component);
 
@@ -939,9 +933,15 @@ var login_form_LoginForm = function (_Component) {
    }
 
    LoginForm.prototype.render = function render(props) {
-      var btnClasses = classnames_default()('btn', 'btn-primary', {
+
+      var loginBtnClasses = classnames_default()('btn', 'btn-primary', {
          'loading': props.loading
       });
+
+      var recoverBtnClasses = classnames_default()('btn', 'btn-link', 'float-right', {
+         'loading': props.loading
+      });
+
       return Object(preact_min["h"])(
          'div',
          { 'class': 'form-group m-2' },
@@ -967,12 +967,19 @@ var login_form_LoginForm = function (_Component) {
             Object(preact_min["h"])(
                'button',
                {
-                  'class': btnClasses,
+                  'class': loginBtnClasses,
                   onClick: props.handleLogin
                },
                'Login'
             ),
-            login_form__ref2
+            Object(preact_min["h"])(
+               'button',
+               {
+                  'class': recoverBtnClasses,
+                  onClick: props.handleRecoverAccount
+               },
+               'Recover account'
+            )
          )
       );
    };
@@ -1037,6 +1044,36 @@ var login_form_container_LoginFormContainer = function (_Component) {
          _this.setState({ password: '' });
       };
 
+      _this._handleRecoverAccount = function () {
+         // loading spinner on button
+         _this.setState({ loading: true });
+
+         fetch("https://erikdgustafson.com/api/!recoverUserAccount?" + _this.state.email).then(function (resp) {
+            return resp.json();
+         }).then(function (json) {
+            if (json.error) {
+               _this.setState({
+                  // display errors and remove loading spinner
+                  serverError: json.error,
+                  showServerError: true,
+                  loading: false
+               });
+            } else if (json.email) {
+               // remove loading spinner
+               // set loginSuccess flag to true to trigger route change to 'Profile'
+               // FIXME - the above feels like a hack. 
+               // might be time to add a redux-style store?
+               _this.setState({ loading: false, recoverAccountSuccess: true });
+               // send event up to set global app state with logged in user
+               _this.props.handleRecoverAccountSuccess(json.email);
+            }
+         }).then(function () {
+            if (_this.state.recoverAccountSuccess) {
+               route('/recover-account', true);
+            }
+         });
+      };
+
       _this._handleEmailChange = _this._handleEmailChange.bind(_this);
       _this._handlePasswordChange = _this._handlePasswordChange.bind(_this);
       _this._toggleShowPassword = _this._toggleShowPassword.bind(_this);
@@ -1047,7 +1084,8 @@ var login_form_container_LoginFormContainer = function (_Component) {
          serverError: '',
          showServerError: false,
          loading: false,
-         loginSuccess: false
+         loginSuccess: false,
+         recoverAccountSuccess: false
       };
       return _this;
    }
@@ -1082,7 +1120,9 @@ var login_form_container_LoginFormContainer = function (_Component) {
 
          handleLogin: this._handleLogin,
 
-         loading: this.state.loading
+         loading: this.state.loading,
+
+         handleRecoverAccount: this._handleRecoverAccount
 
       });
    };
@@ -1119,6 +1159,9 @@ var login_Login = function (_Component) {
          formRail: Object(preact_min["h"])(login_form_container_LoginFormContainer, {
             handleLoginSuccess: function handleLoginSuccess(user, token) {
                return props.handleLoginSuccess(user, token);
+            },
+            handleRecoverAccountSuccess: function handleRecoverAccountSuccess(email) {
+               return props.handleRecoverAccountSuccess(email);
             }
          })
       });
@@ -1380,8 +1423,6 @@ var signup_form_container_SignupFormContainer = function (_Component) {
             route('/confirm-account', true);
          }
       });
-
-      this.setState({ email: '', password: '' });
    };
 
    SignupFormContainer.prototype._handleEmailChange = function _handleEmailChange(e) {
@@ -1390,6 +1431,10 @@ var signup_form_container_SignupFormContainer = function (_Component) {
 
    SignupFormContainer.prototype._handlePasswordChange = function _handlePasswordChange(e) {
       this.setState({ password: e.target.value });
+   };
+
+   SignupFormContainer.prototype.componentWillUnmount = function componentWillUnmount() {
+      this.setState({ email: '', password: '' });
    };
 
    SignupFormContainer.prototype.render = function render() {
@@ -1515,12 +1560,6 @@ var form_inputs_NumberInput = function NumberInput(props) {
    }));
 };
 
-var form_inputs__ref3 = Object(preact_min["h"])(
-   "label",
-   { "class": "form-label" },
-   "Password"
-);
-
 var form_inputs_PasswordInput = function (_Component) {
    form_inputs__inherits(PasswordInput, _Component);
 
@@ -1542,10 +1581,15 @@ var form_inputs_PasswordInput = function (_Component) {
    };
 
    PasswordInput.prototype.render = function render(props) {
+      var label = props.label ? props.label : 'Password';
       return Object(preact_min["h"])(
          "div",
          null,
-         form_inputs__ref3,
+         Object(preact_min["h"])(
+            "label",
+            { "class": "form-label" },
+            label
+         ),
          Object(preact_min["h"])("input", _extends({}, props, {
             "class": "form-input",
             type: this.state.showPassword ? "text" : "password",
@@ -1558,7 +1602,7 @@ var form_inputs_PasswordInput = function (_Component) {
    return PasswordInput;
 }(preact_min["Component"]);
 
-var form_inputs__ref4 = Object(preact_min["h"])("i", { "class": "form-icon" });
+var form_inputs__ref3 = Object(preact_min["h"])("i", { "class": "form-icon" });
 
 var form_inputs_ShowPasswordSwitch = function ShowPasswordSwitch(props) {
    return Object(preact_min["h"])(
@@ -1569,7 +1613,7 @@ var form_inputs_ShowPasswordSwitch = function ShowPasswordSwitch(props) {
          { "class": "form-switch" },
          Object(preact_min["h"])("input", _extends({ type: "checkbox"
          }, props)),
-         form_inputs__ref4,
+         form_inputs__ref3,
          "Show password"
       )
    );
@@ -1829,6 +1873,436 @@ var profile_Profile = function Profile(props) {
 };
 
 /* harmony default export */ var profile = (profile_Profile);
+// CONCATENATED MODULE: ./routes/recover-account/components/recover-account-form.js
+
+
+function recover_account_form__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function recover_account_form__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function recover_account_form__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+var recover_account_form__ref = Object(preact_min["h"])(
+   'h1',
+   { 'class': 'text-center' },
+   'Confirm Account'
+);
+
+var recover_account_form__ref2 = Object(preact_min["h"])('i', { 'class': 'icon icon-3x icon-mail', style: 'width: 100%;margin: 0 auto;' });
+
+var recover_account_form__ref3 = Object(preact_min["h"])(
+   'p',
+   { 'class': 'text-center' },
+   'We sent you an email. Please enter the six-digit number below to confirm your account.'
+);
+
+var recover_account_form__ref4 = Object(preact_min["h"])(
+   'p',
+   { 'class': 'form-input-hint' },
+   'Please enter a six-digit number'
+);
+
+var recover_account_form_RecoverAccountForm = function (_Component) {
+   recover_account_form__inherits(RecoverAccountForm, _Component);
+
+   function RecoverAccountForm() {
+      recover_account_form__classCallCheck(this, RecoverAccountForm);
+
+      return recover_account_form__possibleConstructorReturn(this, _Component.apply(this, arguments));
+   }
+
+   RecoverAccountForm.prototype.render = function render(props) {
+      var formClasses = classnames_default()('form-group', {
+         'has-error': props.hasError
+      });
+      var btnClasses = classnames_default()('btn', 'btn-primary', 'centered', 'mt-2', {
+         'loading': props.loading
+      });
+      return Object(preact_min["h"])(
+         'div',
+         { 'class': formClasses },
+         recover_account_form__ref,
+         recover_account_form__ref2,
+         recover_account_form__ref3,
+         Object(preact_min["h"])(
+            toast_Toast,
+            { error: true, active: props.showServerError },
+            props.serverError
+         ),
+         Object(preact_min["h"])(form_inputs_TextInput, {
+            value: props.recoverAccountNumber,
+            onChange: props.handleRecoverAccountNumberChange
+         }),
+         recover_account_form__ref4,
+         Object(preact_min["h"])(
+            'button',
+            {
+               'class': btnClasses,
+               onClick: props.handleRecoverAccount
+            },
+            'Confirm Account'
+         )
+      );
+   };
+
+   return RecoverAccountForm;
+}(preact_min["Component"]);
+
+
+// CONCATENATED MODULE: ./routes/recover-account/components/recover-account-form-container.js
+
+
+function recover_account_form_container__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function recover_account_form_container__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function recover_account_form_container__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+var recover_account_form_container_RecoverAccountFormContainer = function (_Component) {
+   recover_account_form_container__inherits(RecoverAccountFormContainer, _Component);
+
+   function RecoverAccountFormContainer(props) {
+      recover_account_form_container__classCallCheck(this, RecoverAccountFormContainer);
+
+      var _this = recover_account_form_container__possibleConstructorReturn(this, _Component.call(this, props));
+
+      _this._handleRecoverAccountNumberChange = function (e) {
+         _this.setState({ recoverAccountNumber: e.target.value });
+      };
+
+      _this._handleRecoverAccount = function () {
+         _this.setState({ loading: true });
+
+         fetch("https://erikdgustafson.com/api/!confirmRecoverAccountNumber?" + _this.props.email + "&+" + _this.state.recoverAccountNumber, { method: "POST" }).then(function (resp) {
+            return resp.json();
+         }).then(function (json) {
+            if (json.error) {
+               _this.setState({
+                  // display errors and remove loading spinner
+                  serverError: json.error,
+                  showServerError: true,
+                  loading: false
+               });
+            } else if (json.canResetPassword) {
+               // remove loading spinner
+               // set recoverAccountSuccess flag to true to trigger route change to 'ResetPassword'
+               // FIXME - the above feels like a hack. 
+               // might be time to add a redux-style store?
+               _this.setState({ loading: false, canResetPassword: json.canResetPassword });
+               // send event up to set global app state with logged in user
+            }
+         }).then(function () {
+            if (_this.state.canResetPassword) {
+               route('/reset-password', true);
+            }
+         });
+      };
+
+      _this.state = {
+         recoverAccountNumber: '',
+         serverError: '',
+         showServerError: false,
+         canResetPassword: false,
+         loading: false
+      };
+      return _this;
+   }
+
+   // TODO - hasError below should be a method called as...
+   //
+   // hasError={ this._hasError(this.state.recoverAccountNumber) }
+   // 
+   // ...or something like that.
+
+   RecoverAccountFormContainer.prototype.render = function render(props) {
+      return Object(preact_min["h"])(recover_account_form_RecoverAccountForm, {
+
+         recoverAccountNumber: this.state.recoverAccountNumber,
+         handleRecoverAccountNumberChange: this._handleRecoverAccountNumberChange,
+
+         hasError: this.state.recoverAccountNumber && (isNaN(this.state.recoverAccountNumber) || !(this.state.recoverAccountNumber.length === 6)) ? true : false,
+
+         serverError: this.state.serverError,
+         showServerError: this.state.showServerError,
+
+         loading: this.state.loading,
+         handleRecoverAccount: this._handleRecoverAccount
+
+      });
+   };
+
+   return RecoverAccountFormContainer;
+}(preact_min["Component"]);
+
+
+// CONCATENATED MODULE: ./routes/recover-account/index.js
+
+
+function recover_account__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function recover_account__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function recover_account__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+var recover_account_RecoverAccount = function (_Component) {
+   recover_account__inherits(RecoverAccount, _Component);
+
+   function RecoverAccount() {
+      recover_account__classCallCheck(this, RecoverAccount);
+
+      return recover_account__possibleConstructorReturn(this, _Component.apply(this, arguments));
+   }
+
+   RecoverAccount.prototype.render = function render(props) {
+      return Object(preact_min["h"])(flex_container_FlexContainer, {
+         formRail: Object(preact_min["h"])(recover_account_form_container_RecoverAccountFormContainer, {
+            email: props.email,
+            handleRecoverAccountSuccess: props.handleRecoverAccountSuccess
+         })
+      });
+   };
+
+   return RecoverAccount;
+}(preact_min["Component"]);
+
+/* harmony default export */ var recover_account = (recover_account_RecoverAccount);
+// CONCATENATED MODULE: ./routes/reset-password/components/reset-password-form.js
+
+
+function reset_password_form__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function reset_password_form__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function reset_password_form__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+var reset_password_form__ref = Object(preact_min["h"])(
+   'h1',
+   null,
+   'Reset Account Password'
+);
+
+var reset_password_form_ResetPasswordForm = function (_Component) {
+   reset_password_form__inherits(ResetPasswordForm, _Component);
+
+   function ResetPasswordForm() {
+      reset_password_form__classCallCheck(this, ResetPasswordForm);
+
+      return reset_password_form__possibleConstructorReturn(this, _Component.apply(this, arguments));
+   }
+
+   ResetPasswordForm.prototype.render = function render(props) {
+
+      var formClasses = classnames_default()('form-group', { 'has-error': props.formError });
+
+      // hide error hint if not needed
+      var hintClasses = classnames_default()('form-input-hint', { 'd-hide': !props.formError });
+
+      var btnClasses = classnames_default()('btn', 'btn-primary', { 'loading': props.loading });
+
+      return Object(preact_min["h"])(
+         'div',
+         { 'class': formClasses },
+         reset_password_form__ref,
+         Object(preact_min["h"])(
+            toast_Toast,
+            { error: true, active: props.showServerError },
+            props.serverError
+         ),
+         Object(preact_min["h"])(form_inputs_PasswordInput, {
+            value: props.password,
+            onChange: props.handlePasswordChange
+         }),
+         Object(preact_min["h"])(form_inputs_PasswordInput, {
+            label: 'Confirm Password',
+            value: props.password2,
+            onChange: props.handlePassword2Change
+         }),
+         Object(preact_min["h"])(
+            'p',
+            { 'class': hintClasses },
+            'Passwords do not match'
+         ),
+         Object(preact_min["h"])(
+            'button',
+            {
+               'class': btnClasses,
+               onClick: props.handleResetPassword
+            },
+            'Reset password'
+         )
+      );
+   };
+
+   return ResetPasswordForm;
+}(preact_min["Component"]);
+
+
+// CONCATENATED MODULE: ./routes/reset-password/components/reset-password-form-container.js
+
+
+function reset_password_form_container__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function reset_password_form_container__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function reset_password_form_container__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+var reset_password_form_container_ResetPasswordFormContainer = function (_Component) {
+   reset_password_form_container__inherits(ResetPasswordFormContainer, _Component);
+
+   function ResetPasswordFormContainer(props) {
+      reset_password_form_container__classCallCheck(this, ResetPasswordFormContainer);
+
+      var _this = reset_password_form_container__possibleConstructorReturn(this, _Component.call(this, props));
+
+      _this._handleResetPassword = function () {
+         // make sure passwords match, throw form error if not
+         if (!(_this.state.password === _this.state.password2)) {
+            _this.setState({ formError: true });
+            return;
+         }
+
+         if (_this.state.formError) {
+            _this.setState({ formError: false });
+         }
+
+         // loading spinner on button
+         _this.setState({ loading: true });
+
+         fetch("https://erikdgustafson.com/api/!resetUserPassword?" + _this.props.email + "&" + _this.state.password).then(function (resp) {
+            return resp.json();
+         }).then(function (json) {
+            if (json.error) {
+               _this.setState({
+                  // display errors and remove loading spinner
+                  serverError: json.error,
+                  showServerError: true,
+                  loading: false
+               });
+            } else if (json.token) {
+               // remove loading spinner
+               // set loginSuccess flag to true to trigger route change to 'Profile'
+               // FIXME - the above feels like a hack. 
+               // might be time to add a redux-style store?
+               _this.setState({ loading: false, resetPasswordSuccess: true });
+               // send event up to set global app state with logged in user
+               _this.props.handleResetPasswordSuccess(json.user, json.token);
+            }
+         }).then(function () {
+            if (_this.state.resetPasswordSuccess) {
+               route('/profile', true);
+            }
+         });
+      };
+
+      _this._handlePasswordChange = function (e) {
+         _this.setState({ password: e.target.value });
+      };
+
+      _this._handlePassword2Change = function (e) {
+         _this.setState({ password2: e.target.value });
+      };
+
+      _this.state = {
+         password: '',
+         password2: '',
+         formError: false,
+         serverError: '',
+         showServerError: false,
+         loading: false
+      };
+      return _this;
+   }
+
+   ResetPasswordFormContainer.prototype.render = function render() {
+      return Object(preact_min["h"])(reset_password_form_ResetPasswordForm, {
+
+         serverError: this.state.serverError,
+         showServerError: this.state.showServerError,
+
+         formError: this.state.formError,
+
+         password: this.state.password,
+         password2: this.state.password2,
+         handlePasswordChange: this._handlePasswordChange,
+         handlePassword2Change: this._handlePassword2Change,
+
+         handleResetPassword: this._handleResetPassword,
+
+         loading: this.state.loading
+
+      });
+   };
+
+   return ResetPasswordFormContainer;
+}(preact_min["Component"]);
+
+
+// CONCATENATED MODULE: ./routes/reset-password/index.js
+
+
+function reset_password__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function reset_password__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function reset_password__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+var reset_password_ResetPassword = function (_Component) {
+   reset_password__inherits(ResetPassword, _Component);
+
+   function ResetPassword() {
+      reset_password__classCallCheck(this, ResetPassword);
+
+      return reset_password__possibleConstructorReturn(this, _Component.apply(this, arguments));
+   }
+
+   ResetPassword.prototype.render = function render(props) {
+      return Object(preact_min["h"])(flex_container_FlexContainer, {
+         formRail: Object(preact_min["h"])(reset_password_form_container_ResetPasswordFormContainer, {
+            email: props.email,
+            handleResetPasswordSuccess: function handleResetPasswordSuccess(user, token) {
+               return props.handleResetPasswordSuccess(user, token);
+            }
+         })
+      });
+   };
+
+   return ResetPassword;
+}(preact_min["Component"]);
+
+/* harmony default export */ var reset_password = (reset_password_ResetPassword);
 // CONCATENATED MODULE: ./components/navbar.js
 
 
@@ -1902,6 +2376,8 @@ function index__inherits(subClass, superClass) { if (typeof superClass !== "func
 
 
 
+
+
 // get that navbar
 
 
@@ -1924,17 +2400,27 @@ var index_App = function (_Component) {
       return _ret = (_temp = (_this = index__possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.state = {
          user: '',
          loginToken: '',
-         email: ''
-      }, _this.handleLoginSuccess = function (user, token) {
+         email: '',
+         confirmed: false
+      }, _this._handleLoginSuccess = function (user, token) {
          _this.setState({
             user: user,
             loginToken: token
          });
-      }, _this.handleSignupSuccess = function (email) {
+      }, _this._handleSignupSuccess = function (email) {
          _this.setState({
             email: email
          });
-      }, _this.handleLogout = function () {
+      }, _this._handleRecoverAccountSuccess = function (email) {
+         _this.setState({
+            email: email
+         });
+      }, _this._handleResetPasswordSuccess = function (user, token) {
+         _this.setState({
+            user: user,
+            loginToken: token
+         });
+      }, _this._handleLogout = function () {
          _this.setState({
             user: '',
             loginToken: ''
@@ -1954,22 +2440,32 @@ var index_App = function (_Component) {
             index__ref2,
             Object(preact_min["h"])(login, {
                path: '/login',
-               handleLoginSuccess: this.handleLoginSuccess
+               handleLoginSuccess: this._handleLoginSuccess,
+               handleRecoverAccountSuccess: this._handleRecoverAccountSuccess
+            }),
+            Object(preact_min["h"])(recover_account, {
+               path: '/recover-account',
+               email: this.state.email
+            }),
+            Object(preact_min["h"])(reset_password, {
+               path: '/reset-password',
+               email: this.state.email,
+               handleResetPasswordSuccess: this._handleResetPasswordSuccess
             }),
             Object(preact_min["h"])(signup, {
                path: '/signup',
-               handleSignupSuccess: this.handleSignupSuccess
+               handleSignupSuccess: this._handleSignupSuccess
             }),
             Object(preact_min["h"])(confirm_account, {
                path: '/confirm-account',
                email: this.state.email,
-               handleLoginSuccess: this.handleLoginSuccess
+               handleLoginSuccess: this._handleLoginSuccess
             }),
             Object(preact_min["h"])(profile, {
                path: '/profile',
                user: this.state.user,
                loginToken: this.state.loginToken,
-               handleLogout: this.handleLogout
+               handleLogout: this._handleLogout
             })
          )
       );

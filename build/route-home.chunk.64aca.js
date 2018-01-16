@@ -1,2 +1,2 @@
-webpackJsonp([4],{"4swA":function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var u=n("EBst"),c=(n.n(u),Object(u.h)("h1",null,"Home Page"));t.default=function(){return c}}});
+webpackJsonp([5],{"4swA":function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var u=n("EBst"),c=(n.n(u),Object(u.h)("h1",null,"Home Page"));t.default=function(){return c}}});
 //# sourceMappingURL=route-home.chunk.64aca.js.map
