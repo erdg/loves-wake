@@ -9,25 +9,28 @@ class LoginForm extends Component {
 
    render (props) {
 
+      let formClasses = classNames(
+         'form-group', { 'has-error': props.emailError || props.passwordError }
+      );
+
       let loginBtnClasses = classNames(
-         'btn', 
-         'btn-primary',
-         {
-            'loading': props.loading
-         }
+         'btn', 'btn-primary', { 'loading': props.loading }
       );
 
       let recoverBtnClasses = classNames(
-         'btn',
-         'btn-link',
-         'float-right',
-         {
-            'loading': props.loading
-         }
+         'btn', 'btn-link', 'float-right', { 'loading': props.loading }
+      );
+
+      let emailHintClasses = classNames(
+         'form-input-hint', { 'd-hide': !props.emailError }
+      );
+
+      let passwordHintClasses = classNames(
+         'form-input-hint', { 'd-hide': !props.passwordError }
       );
 
       return (
-         <div class="form-group m-2">
+         <div class={ formClasses }>
 
             <h1>Login</h1>
 
@@ -40,12 +43,20 @@ class LoginForm extends Component {
                handleEmailChange={props.handleEmailChange}
             />
 
+            <p class={ emailHintClasses }>
+               Please enter a valid email address
+            </p>
+
             <PasswordInput 
                password={props.password}
                handlePasswordChange={props.handlePasswordChange}
                toggleShowPassword={ props.toggleShowPassword }
                showPassword={ props.showPassword }
             />
+
+            <p class={ passwordHintClasses }>
+               Gotta have a password to login...
+            </p>
 
             <div class="row">
                <button 
