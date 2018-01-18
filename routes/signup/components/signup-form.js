@@ -6,15 +6,25 @@ import { Dialog } from '../../../components/dialog';
 
 class SignupForm extends Component {
    render (props) {
-       let btnClasses = classNames(
-         'btn', 
-         'btn-primary',
-         {
-            'loading': props.loading
-         }
+      let formClasses = classNames(
+         'form-group', { 'has-error': props.emailError || props.passwordError }
       );
+
+      let btnClasses = classNames( 
+         'btn', 'btn-primary', { 'loading': props.loading }
+      );
+
+      let emailHintClasses = classNames(
+         'form-input-hint', { 'd-hide': !props.emailError }
+      );
+
+      let passwordHintClasses = classNames(
+         'form-input-hint', { 'd-hide': !props.passwordError }
+      );
+
+
       return (
-         <div class="form-group m-2">
+         <div class={ formClasses }>
 
             <h1>Signup</h1>
 
@@ -23,12 +33,20 @@ class SignupForm extends Component {
                handleEmailChange={props.handleEmailChange}
             />
 
+            <p class={ emailHintClasses }>
+               Please enter a valid email address
+            </p>
+
             <PasswordInput 
                password={props.password}
                handlePasswordChange={props.handlePasswordChange}
                toggleShowPassword={ props.toggleShowPassword }
                showPassword={ props.showPassword }
             />
+
+            <p class={ passwordHintClasses }>
+               Every account needs a password...
+            </p>
 
             <button 
                class={ btnClasses }
