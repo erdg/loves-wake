@@ -14,11 +14,11 @@ class LoginForm extends Component {
       );
 
       let loginBtnClasses = classNames(
-         'btn', 'btn-primary', { 'loading': props.loading }
+         'btn', 'btn-primary', { 'loading': props.loginBtnLoading }
       );
 
       let recoverBtnClasses = classNames(
-         'btn', 'btn-link', 'float-right', { 'loading': props.loading }
+         'btn', 'btn-link', 'float-right', { 'loading': props.recoverBtnLoading }
       );
 
       let emailHintClasses = classNames(

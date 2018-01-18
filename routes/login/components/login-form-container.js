@@ -20,7 +20,8 @@ class LoginFormContainer extends Component {
          showPassword: false,
          serverError: '',
          showServerError: false,
-         loading: false,
+         loginBtnLoading: false,
+         recoverBtnLoading: false,
          loginSuccess: false,
          recoverAccountSuccess:false
       };
@@ -50,7 +51,7 @@ class LoginFormContainer extends Component {
       }
 
       // loading spinner on button
-      this.setState({ loading: true });
+      this.setState({ loginBtnLoading: true });
 
       fetch("https://erikdgustafson.com/api/!loginUser?"
          + this.state.email
@@ -66,7 +67,7 @@ class LoginFormContainer extends Component {
                // display errors and remove loading spinner
                serverError: json.error, 
                showServerError: true,
-               loading: false
+               loginBtnLoading: false
             });
 
          } else if (json.token) {
@@ -74,7 +75,7 @@ class LoginFormContainer extends Component {
             // set loginSuccess flag to true to trigger route change to 'Profile'
             // FIXME - the above feels like a hack. 
             // might be time to add a redux-style store?
-            this.setState({ loading: false, loginSuccess: true});
+            this.setState({ loginBtnLoading: false, loginSuccess: true});
             // send event up to set global app state with logged in user
             this.props.handleLoginSuccess(json.user, json.token);
          }
@@ -92,7 +93,7 @@ class LoginFormContainer extends Component {
 
    _handleRecoverAccount = () => {
       // loading spinner on button
-      this.setState({ loading: true });
+      this.setState({ recoverBtnLoading: true });
 
       fetch("https://erikdgustafson.com/api/!recoverUserAccount?"
          + this.state.email
@@ -106,7 +107,7 @@ class LoginFormContainer extends Component {
                // display errors and remove loading spinner
                serverError: json.error, 
                showServerError: true,
-               loading: false
+               recoverBtnLoading: false
             });
 
          } else if (json.email) {
@@ -114,7 +115,7 @@ class LoginFormContainer extends Component {
             // set loginSuccess flag to true to trigger route change to 'Profile'
             // FIXME - the above feels like a hack. 
             // might be time to add a redux-style store?
-            this.setState({ loading: false, recoverAccountSuccess: true});
+            this.setState({ recoverBtnLoading: false, recoverAccountSuccess: true});
             // send event up to set global app state with logged in user
             this.props.handleRecoverAccountSuccess(json.email);
          }
@@ -155,7 +156,8 @@ class LoginFormContainer extends Component {
 
             handleLogin={ this._handleLogin }
 
-            loading={ this.state.loading }
+            loginBtnLoading={ this.state.loginBtnLoading }
+            recoverBtnLoading={ this.state.recoverBtnLoading }
 
             handleRecoverAccount={ this._handleRecoverAccount }
 
