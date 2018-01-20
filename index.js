@@ -19,6 +19,7 @@ import ConfirmAccount from './routes/confirm-account/';
 import Profile from './routes/profile/';
 import RecoverAccount from './routes/recover-account/';
 import ResetPassword from './routes/reset-password/';
+import CreateShrine from './routes/create-shrine/';
 
 // get that navbar
 import NavBar from './components/navbar';
@@ -108,6 +109,10 @@ export default class App extends Component {
                   user={ this.state.user }
                   loginToken={ this.state.loginToken }
                   handleLogout={ this._handleLogout }
+               />
+
+               <CreateShrine
+                  path="/create-shrine"
                />
 
             </Router>
