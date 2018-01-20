@@ -15,7 +15,7 @@ const EmailInput = (props) => (
 const TextInput = ({ label, ...props}) => (
    <div>
       <label class="form-label">
-         {props.label}
+         {label}
       </label>
       <input
          {...props}
@@ -24,6 +24,20 @@ const TextInput = ({ label, ...props}) => (
       />
    </div>
 )
+
+const FileInput = ({ label, ...props}) => (
+   <div>
+      <label class="form-label">
+         {label}
+      </label>
+      <input
+         {...props}
+         type="file"
+         class="form-input"
+      />
+   </div>
+)
+
 
 const NumberInput = (props) => (
    <input 
@@ -82,4 +96,4 @@ const ShowPasswordSwitch = (props) => (
    </div>
 )
 
-export { EmailInput, TextInput, NumberInput, PasswordInput };
+export { EmailInput, TextInput, NumberInput, PasswordInput, FileInput };
