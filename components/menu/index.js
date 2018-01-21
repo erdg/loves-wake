@@ -1,0 +1,36 @@
+
+const Menu = (props) => {
+   return (
+      <ul class="menu">
+         {props.children}
+      </ul>
+   )
+}
+
+const MenuItem = (props) => {
+   return (
+      <li class="menu-item">
+         {props.children}
+      </li>
+   )
+}
+
+const MenuHeader = (props) => {
+   return (
+      <li class="divider" data-content={props.children}></li>
+   )
+}
+
+const MenuDivider = (props) => {
+   return (
+      <li class="divider" data-content={props.children}></li>
+   )
+}
+
+
+export { 
+   Menu, 
+   MenuItem, 
+   MenuHeader,
+   MenuDivider
+}
