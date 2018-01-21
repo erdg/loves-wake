@@ -45,7 +45,7 @@ const FileInput = ({ label, ...props}) => (
       <input
          {...props}
          type="file"
-         class="form-input"
+         class={ "form-input " + props.class }
       />
    </div>
 )
