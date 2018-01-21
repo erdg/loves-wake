@@ -66,6 +66,150 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
+/***/ "2LX0":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = isEmail;
+
+var _assertString = __webpack_require__("fcJk");
+
+var _assertString2 = _interopRequireDefault(_assertString);
+
+var _merge = __webpack_require__("LLCR");
+
+var _merge2 = _interopRequireDefault(_merge);
+
+var _isByteLength = __webpack_require__("CFqi");
+
+var _isByteLength2 = _interopRequireDefault(_isByteLength);
+
+var _isFQDN = __webpack_require__("cddD");
+
+var _isFQDN2 = _interopRequireDefault(_isFQDN);
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+var default_email_options = {
+  allow_display_name: false,
+  require_display_name: false,
+  allow_utf8_local_part: true,
+  require_tld: true
+};
+
+/* eslint-disable max-len */
+/* eslint-disable no-control-regex */
+var displayName = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\.\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\,\.\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF\s]*<(.+)>$/i;
+var emailUserPart = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~]+$/i;
+var quotedEmailUser = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f]))*$/i;
+var emailUserUtf8Part = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+$/i;
+var quotedEmailUserUtf8 = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*$/i;
+/* eslint-enable max-len */
+/* eslint-enable no-control-regex */
+
+function isEmail(str, options) {
+  (0, _assertString2.default)(str);
+  options = (0, _merge2.default)(options, default_email_options);
+
+  if (options.require_display_name || options.allow_display_name) {
+    var display_email = str.match(displayName);
+    if (display_email) {
+      str = display_email[1];
+    } else if (options.require_display_name) {
+      return false;
+    }
+  }
+
+  var parts = str.split('@');
+  var domain = parts.pop();
+  var user = parts.join('@');
+
+  var lower_domain = domain.toLowerCase();
+  if (lower_domain === 'gmail.com' || lower_domain === 'googlemail.com') {
+    user = user.replace(/\./g, '').toLowerCase();
+  }
+
+  if (!(0, _isByteLength2.default)(user, { max: 64 }) || !(0, _isByteLength2.default)(domain, { max: 254 })) {
+    return false;
+  }
+
+  if (!(0, _isFQDN2.default)(domain, { require_tld: options.require_tld })) {
+    return false;
+  }
+
+  if (user[0] === '"') {
+    user = user.slice(1, user.length - 1);
+    return options.allow_utf8_local_part ? quotedEmailUserUtf8.test(user) : quotedEmailUser.test(user);
+  }
+
+  var pattern = options.allow_utf8_local_part ? emailUserUtf8Part : emailUserPart;
+
+  var user_parts = user.split('.');
+  for (var i = 0; i < user_parts.length; i++) {
+    if (!pattern.test(user_parts[i])) {
+      return false;
+    }
+  }
+
+  return true;
+}
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "CFqi":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
+exports.default = isByteLength;
+
+var _assertString = __webpack_require__("fcJk");
+
+var _assertString2 = _interopRequireDefault(_assertString);
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+/* eslint-disable prefer-rest-params */
+function isByteLength(str, options) {
+  (0, _assertString2.default)(str);
+  var min = void 0;
+  var max = void 0;
+  if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
+    min = options.min || 0;
+    max = options.max;
+  } else {
+    // backwards compatibility: isByteLength(str, min [, max])
+    min = arguments[1];
+    max = arguments[2];
+  }
+  var len = encodeURI(str).split(/%..|./).length - 1;
+  return len >= min && (typeof max === 'undefined' || len <= max);
+}
+module.exports = exports['default'];
+
+/***/ }),
+
 /***/ "CNFk":
 /***/ (function(module, exports) {
 
@@ -737,9 +881,9 @@ var dialog_default = /*#__PURE__*/__webpack_require__.n(dialog);
 // CONCATENATED MODULE: ./components/flex-container/index.js
 
 
-var _ref = Object(preact_min["h"])("div", { "class": "left-rail hide-xs" });
+var flex_container__ref = Object(preact_min["h"])("div", { "class": "left-rail hide-xs" });
 
-var flex_container__ref2 = Object(preact_min["h"])("div", { "class": "left-gutter" });
+var _ref2 = Object(preact_min["h"])("div", { "class": "left-gutter" });
 
 var _ref3 = Object(preact_min["h"])("div", { "class": "right-gutter" });
 
@@ -747,8 +891,8 @@ var flex_container_FlexContainer = function FlexContainer(props) {
    return Object(preact_min["h"])(
       "div",
       { "class": "flex-container" },
-      _ref,
-      flex_container__ref2,
+      flex_container__ref,
+      _ref2,
       Object(preact_min["h"])(
          "div",
          { "class": "avatar-rail hide-lg" },
@@ -769,6 +913,10 @@ var flex_container_FlexContainer = function FlexContainer(props) {
 };
 
 
+// EXTERNAL MODULE: ./node_modules/validator/lib/isEmail.js
+var isEmail = __webpack_require__("2LX0");
+var isEmail_default = /*#__PURE__*/__webpack_require__.n(isEmail);
+
 // EXTERNAL MODULE: ./node_modules/classnames/index.js
 var classnames = __webpack_require__("HW6M");
 var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
@@ -778,10 +926,11 @@ var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
 
 
 var dialog_Dialog = function Dialog(props) {
-   var btnClasses = classnames_default()('btn', 'btn-action', 'btn-sm', 'btn-primary', 'circle', 'text-bold', 'float-right', 'm-1');
-   var diaClasses = classnames_default()('dialog', {
-      'd-none': !props.active
-   });
+
+   var diaClasses = classnames_default()('dialog', { 'd-none': !props.active });
+
+   var iconClasses = classnames_default()('dialog-icon', 'circle', 'text-bold', 'float-right', 'm-1');
+
    return Object(preact_min["h"])(
       'div',
       { 'class': 'relative mt-1' },
@@ -791,10 +940,8 @@ var dialog_Dialog = function Dialog(props) {
          props.children
       ),
       Object(preact_min["h"])(
-         'button',
-         {
-            'class': btnClasses
-         },
+         'div',
+         { 'class': iconClasses },
          'i'
       )
    );
@@ -934,17 +1081,19 @@ var login_form_LoginForm = function (_Component) {
 
    LoginForm.prototype.render = function render(props) {
 
-      var loginBtnClasses = classnames_default()('btn', 'btn-primary', {
-         'loading': props.loading
-      });
+      var formClasses = classnames_default()('form-group', { 'has-error': props.emailError || props.passwordError });
 
-      var recoverBtnClasses = classnames_default()('btn', 'btn-link', 'float-right', {
-         'loading': props.loading
-      });
+      var loginBtnClasses = classnames_default()('btn', 'btn-primary', { 'loading': props.loginBtnLoading });
+
+      var recoverBtnClasses = classnames_default()('btn', 'btn-link', 'float-right', { 'loading': props.recoverBtnLoading });
+
+      var emailHintClasses = classnames_default()('form-input-hint', { 'd-hide': !props.emailError });
+
+      var passwordHintClasses = classnames_default()('form-input-hint', { 'd-hide': !props.passwordError });
 
       return Object(preact_min["h"])(
          'div',
-         { 'class': 'form-group m-2' },
+         { 'class': formClasses },
          login_form__ref,
          Object(preact_min["h"])(
             toast_Toast,
@@ -955,12 +1104,22 @@ var login_form_LoginForm = function (_Component) {
             email: props.email,
             handleEmailChange: props.handleEmailChange
          }),
+         Object(preact_min["h"])(
+            'p',
+            { 'class': emailHintClasses },
+            'Please enter a valid email address'
+         ),
          Object(preact_min["h"])(login_form_inputs_PasswordInput, {
             password: props.password,
             handlePasswordChange: props.handlePasswordChange,
             toggleShowPassword: props.toggleShowPassword,
             showPassword: props.showPassword
          }),
+         Object(preact_min["h"])(
+            'p',
+            { 'class': passwordHintClasses },
+            'Gotta have a password to login...'
+         ),
          Object(preact_min["h"])(
             'div',
             { 'class': 'row' },
@@ -1002,6 +1161,7 @@ function login_form_container__inherits(subClass, superClass) { if (typeof super
 
 
 
+
 var login_form_container_LoginFormContainer = function (_Component) {
    login_form_container__inherits(LoginFormContainer, _Component);
 
@@ -1012,8 +1172,25 @@ var login_form_container_LoginFormContainer = function (_Component) {
       var _this = login_form_container__possibleConstructorReturn(this, _Component.call(this, props));
 
       _this._handleLogin = function () {
+         // if not valid email address
+         if (!isEmail_default()(_this.state.email)) {
+            // throw email error, don't submit
+            _this.setState({ emailError: true });
+            return;
+         } else {
+            _this.setState({ emailError: false });
+         }
+
+         // make sure there's a password
+         if (!_this.state.password) {
+            _this.setState({ passwordError: true });
+            return;
+         } else {
+            _this.setState({ passwordError: false });
+         }
+
          // loading spinner on button
-         _this.setState({ loading: true });
+         _this.setState({ loginBtnLoading: true });
 
          fetch("https://erikdgustafson.com/api/!loginUser?" + _this.state.email + "&" + _this.state.password).then(function (resp) {
             return resp.json();
@@ -1023,14 +1200,14 @@ var login_form_container_LoginFormContainer = function (_Component) {
                   // display errors and remove loading spinner
                   serverError: json.error,
                   showServerError: true,
-                  loading: false
+                  loginBtnLoading: false
                });
             } else if (json.token) {
                // remove loading spinner
                // set loginSuccess flag to true to trigger route change to 'Profile'
                // FIXME - the above feels like a hack. 
                // might be time to add a redux-style store?
-               _this.setState({ loading: false, loginSuccess: true });
+               _this.setState({ loginBtnLoading: false, loginSuccess: true });
                // send event up to set global app state with logged in user
                _this.props.handleLoginSuccess(json.user, json.token);
             }
@@ -1046,7 +1223,7 @@ var login_form_container_LoginFormContainer = function (_Component) {
 
       _this._handleRecoverAccount = function () {
          // loading spinner on button
-         _this.setState({ loading: true });
+         _this.setState({ recoverBtnLoading: true });
 
          fetch("https://erikdgustafson.com/api/!recoverUserAccount?" + _this.state.email).then(function (resp) {
             return resp.json();
@@ -1056,14 +1233,14 @@ var login_form_container_LoginFormContainer = function (_Component) {
                   // display errors and remove loading spinner
                   serverError: json.error,
                   showServerError: true,
-                  loading: false
+                  recoverBtnLoading: false
                });
             } else if (json.email) {
                // remove loading spinner
                // set loginSuccess flag to true to trigger route change to 'Profile'
                // FIXME - the above feels like a hack. 
                // might be time to add a redux-style store?
-               _this.setState({ loading: false, recoverAccountSuccess: true });
+               _this.setState({ recoverBtnLoading: false, recoverAccountSuccess: true });
                // send event up to set global app state with logged in user
                _this.props.handleRecoverAccountSuccess(json.email);
             }
@@ -1079,11 +1256,14 @@ var login_form_container_LoginFormContainer = function (_Component) {
       _this._toggleShowPassword = _this._toggleShowPassword.bind(_this);
       _this.state = {
          email: '',
+         emailError: false,
          password: '',
+         passwordError: false,
          showPassword: false,
          serverError: '',
          showServerError: false,
-         loading: false,
+         loginBtnLoading: false,
+         recoverBtnLoading: false,
          loginSuccess: false,
          recoverAccountSuccess: false
       };
@@ -1110,9 +1290,11 @@ var login_form_container_LoginFormContainer = function (_Component) {
          showServerError: this.state.showServerError,
 
          email: this.state.email,
+         emailError: this.state.emailError,
          handleEmailChange: this._handleEmailChange,
 
          password: this.state.password,
+         passwordError: this.state.passwordError,
          handlePasswordChange: this._handlePasswordChange,
 
          toggleShowPassword: this._toggleShowPassword,
@@ -1120,7 +1302,8 @@ var login_form_container_LoginFormContainer = function (_Component) {
 
          handleLogin: this._handleLogin,
 
-         loading: this.state.loading,
+         loginBtnLoading: this.state.loginBtnLoading,
+         recoverBtnLoading: this.state.recoverBtnLoading,
 
          handleRecoverAccount: this._handleRecoverAccount
 
@@ -1236,7 +1419,7 @@ var signup_form_inputs__ref3 = Object(preact_min["h"])(
    'Password'
 );
 
-var _ref4 = Object(preact_min["h"])('i', { 'class': 'form-icon' });
+var signup_form_inputs__ref4 = Object(preact_min["h"])('i', { 'class': 'form-icon' });
 
 var signup_form_inputs_PasswordInput = function (_Component) {
    signup_form_inputs__inherits(PasswordInput, _Component);
@@ -1283,7 +1466,7 @@ var signup_form_inputs_PasswordInput = function (_Component) {
             Object(preact_min["h"])('input', { type: 'checkbox',
                onClick: props.toggleShowPassword
             }),
-            _ref4,
+            signup_form_inputs__ref4,
             'Show password'
          )
       );
@@ -1324,23 +1507,38 @@ var signup_form_SignupForm = function (_Component) {
    }
 
    SignupForm.prototype.render = function render(props) {
-      var btnClasses = classnames_default()('btn', 'btn-primary', {
-         'loading': props.loading
-      });
+      var formClasses = classnames_default()('form-group', { 'has-error': props.emailError || props.passwordError });
+
+      var btnClasses = classnames_default()('btn', 'btn-primary', { 'loading': props.loading });
+
+      var emailHintClasses = classnames_default()('form-input-hint', { 'd-hide': !props.emailError });
+
+      var passwordHintClasses = classnames_default()('form-input-hint', { 'd-hide': !props.passwordError });
+
       return Object(preact_min["h"])(
          'div',
-         { 'class': 'form-group m-2' },
+         { 'class': formClasses },
          signup_form__ref,
          Object(preact_min["h"])(signup_form_inputs_EmailInput, {
             email: props.email,
             handleEmailChange: props.handleEmailChange
          }),
+         Object(preact_min["h"])(
+            'p',
+            { 'class': emailHintClasses },
+            'Please enter a valid email address'
+         ),
          Object(preact_min["h"])(signup_form_inputs_PasswordInput, {
             password: props.password,
             handlePasswordChange: props.handlePasswordChange,
             toggleShowPassword: props.toggleShowPassword,
             showPassword: props.showPassword
          }),
+         Object(preact_min["h"])(
+            'p',
+            { 'class': passwordHintClasses },
+            'Every account needs a password...'
+         ),
          Object(preact_min["h"])(
             'button',
             {
@@ -1370,6 +1568,7 @@ function signup_form_container__inherits(subClass, superClass) { if (typeof supe
 
 
 
+
 var signup_form_container_SignupFormContainer = function (_Component) {
    signup_form_container__inherits(SignupFormContainer, _Component);
 
@@ -1384,7 +1583,9 @@ var signup_form_container_SignupFormContainer = function (_Component) {
       _this._toggleShowPassword = _this._toggleShowPassword.bind(_this);
       _this.state = {
          email: '',
+         emailError: false,
          password: '',
+         passwordError: false,
          showPassword: false,
          serverError: '',
          showServerError: false,
@@ -1401,6 +1602,23 @@ var signup_form_container_SignupFormContainer = function (_Component) {
 
    SignupFormContainer.prototype._handleSignup = function _handleSignup() {
       var _this2 = this;
+
+      // if not valid email address
+      if (!isEmail_default()(this.state.email)) {
+         // throw email error, don't submit
+         this.setState({ emailError: true });
+         return;
+      } else {
+         this.setState({ emailError: false });
+      }
+
+      // make sure there's a password
+      if (!this.state.password) {
+         this.setState({ passwordError: true });
+         return;
+      } else {
+         this.setState({ passwordError: false });
+      }
 
       this.setState({ loading: true });
 
@@ -1444,9 +1662,11 @@ var signup_form_container_SignupFormContainer = function (_Component) {
          showServerError: this.state.showServerError,
 
          email: this.state.email,
+         emailError: this.state.emailError,
          handleEmailChange: this._handleEmailChange,
 
          password: this.state.password,
+         passwordError: this.state.passwordError,
          handlePasswordChange: this._handlePasswordChange,
 
          toggleShowPassword: this._toggleShowPassword,
@@ -1515,7 +1735,31 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 
 
 
-var form_inputs__ref = Object(preact_min["h"])(
+var form_inputs__ref2 = Object(preact_min["h"])("i", { "class": "form-icon" });
+
+var form_inputs_Radio = function Radio(_ref) {
+   var label = _ref.label,
+       name = _ref.name,
+       props = _objectWithoutProperties(_ref, ["label", "name"]);
+
+   return Object(preact_min["h"])(
+      "label",
+      { "class": "form-radio" },
+      Object(preact_min["h"])("input", { name: name, type: "radio" }),
+      form_inputs__ref2,
+      label
+   );
+};
+
+var form_inputs_Label = function Label(props) {
+   return Object(preact_min["h"])(
+      "label",
+      { "class": "form-label" },
+      props.children
+   );
+};
+
+var form_inputs__ref3 = Object(preact_min["h"])(
    "label",
    { "class": "form-label" },
    "Email"
@@ -1525,7 +1769,7 @@ var form_inputs_EmailInput = function EmailInput(props) {
    return Object(preact_min["h"])(
       "div",
       null,
-      form_inputs__ref,
+      form_inputs__ref3,
       Object(preact_min["h"])("input", _extends({}, props, {
          type: "email",
          "class": "form-input",
@@ -1534,9 +1778,9 @@ var form_inputs_EmailInput = function EmailInput(props) {
    );
 };
 
-var form_inputs_TextInput = function TextInput(_ref2) {
-   var label = _ref2.label,
-       props = _objectWithoutProperties(_ref2, ["label"]);
+var form_inputs_TextInput = function TextInput(_ref4) {
+   var label = _ref4.label,
+       props = _objectWithoutProperties(_ref4, ["label"]);
 
    return Object(preact_min["h"])(
       "div",
@@ -1544,11 +1788,30 @@ var form_inputs_TextInput = function TextInput(_ref2) {
       Object(preact_min["h"])(
          "label",
          { "class": "form-label" },
-         props.label
+         label
       ),
       Object(preact_min["h"])("input", _extends({}, props, {
          type: "text",
          "class": "form-input"
+      }))
+   );
+};
+
+var form_inputs_FileInput = function FileInput(_ref5) {
+   var label = _ref5.label,
+       props = _objectWithoutProperties(_ref5, ["label"]);
+
+   return Object(preact_min["h"])(
+      "div",
+      null,
+      Object(preact_min["h"])(
+         "label",
+         { "class": "form-label" },
+         label
+      ),
+      Object(preact_min["h"])("input", _extends({}, props, {
+         type: "file",
+         "class": "form-input " + props.class
       }))
    );
 };
@@ -1602,7 +1865,7 @@ var form_inputs_PasswordInput = function (_Component) {
    return PasswordInput;
 }(preact_min["Component"]);
 
-var form_inputs__ref3 = Object(preact_min["h"])("i", { "class": "form-icon" });
+var _ref6 = Object(preact_min["h"])("i", { "class": "form-icon" });
 
 var form_inputs_ShowPasswordSwitch = function ShowPasswordSwitch(props) {
    return Object(preact_min["h"])(
@@ -1613,7 +1876,7 @@ var form_inputs_ShowPasswordSwitch = function ShowPasswordSwitch(props) {
          { "class": "form-switch" },
          Object(preact_min["h"])("input", _extends({ type: "checkbox"
          }, props)),
-         form_inputs__ref3,
+         _ref6,
          "Show password"
       )
    );
@@ -2303,6 +2566,469 @@ var reset_password_ResetPassword = function (_Component) {
 }(preact_min["Component"]);
 
 /* harmony default export */ var reset_password = (reset_password_ResetPassword);
+// CONCATENATED MODULE: ./routes/create-shrine/components/next-step-button.js
+
+var next_step_button_NextStepButton = function NextStepButton(props) {
+   return Object(preact_min["h"])(
+      "button",
+      {
+         "class": "btn btn-primary float-right mt-2",
+         onClick: props.onClick
+      },
+      "Next Step"
+   );
+};
+
+
+// CONCATENATED MODULE: ./routes/create-shrine/components/create-shrine-form-step1.js
+
+
+
+
+
+
+var create_shrine_form_step1__ref = Object(preact_min["h"])(
+   'h1',
+   null,
+   'Create a New Shrine'
+);
+
+var create_shrine_form_step1__ref2 = Object(preact_min["h"])(
+   'h4',
+   null,
+   'Step 1'
+);
+
+var create_shrine_form_step1__ref3 = Object(preact_min["h"])(form_inputs_TextInput, { label: 'First Name' });
+
+var create_shrine_form_step1__ref4 = Object(preact_min["h"])(form_inputs_TextInput, { label: 'Last Name' });
+
+var create_shrine_form_step1_CreateShrineFormStep1 = function CreateShrineFormStep1(props) {
+   return Object(preact_min["h"])(
+      'div',
+      null,
+      create_shrine_form_step1__ref,
+      create_shrine_form_step1__ref2,
+      create_shrine_form_step1__ref3,
+      create_shrine_form_step1__ref4,
+      Object(preact_min["h"])(next_step_button_NextStepButton, {
+         onClick: props.handleNextStep
+      })
+   );
+};
+
+
+// CONCATENATED MODULE: ./routes/create-shrine/components/create-shrine-form-step2.js
+
+
+
+
+
+
+var create_shrine_form_step2__ref = Object(preact_min["h"])(
+   'h1',
+   null,
+   'Create a New Shrine'
+);
+
+var create_shrine_form_step2__ref2 = Object(preact_min["h"])(
+   'h4',
+   null,
+   'Step 2'
+);
+
+var create_shrine_form_step2__ref3 = Object(preact_min["h"])(form_inputs_FileInput, {
+   'class': 'text-ellipsis',
+   label: 'Upload a Photo'
+});
+
+var create_shrine_form_step2_CreateShrineFormStep2 = function CreateShrineFormStep2(props) {
+   return Object(preact_min["h"])(
+      'div',
+      null,
+      create_shrine_form_step2__ref,
+      create_shrine_form_step2__ref2,
+      create_shrine_form_step2__ref3,
+      Object(preact_min["h"])(next_step_button_NextStepButton, {
+         onClick: props.handleNextStep
+      })
+   );
+};
+
+
+// CONCATENATED MODULE: ./routes/create-shrine/components/create-shrine-form-step3.js
+
+
+
+
+
+
+var create_shrine_form_step3__ref = Object(preact_min["h"])(
+   'h1',
+   null,
+   'Create a New Shrine'
+);
+
+var create_shrine_form_step3__ref2 = Object(preact_min["h"])(
+   'div',
+   null,
+   Object(preact_min["h"])(
+      form_inputs_Label,
+      null,
+      'Gender'
+   ),
+   Object(preact_min["h"])(
+      'div',
+      { 'class': 'col mx-2' },
+      Object(preact_min["h"])(
+         'div',
+         { 'class': 'row' },
+         Object(preact_min["h"])(form_inputs_Radio, { label: 'Female', name: 'gender' }),
+         Object(preact_min["h"])(
+            'span',
+            { 'class': 'text-gray' },
+            '- She/Her'
+         )
+      ),
+      Object(preact_min["h"])(
+         'div',
+         { 'class': 'row' },
+         Object(preact_min["h"])(form_inputs_Radio, { label: 'Male', name: 'gender' }),
+         Object(preact_min["h"])(
+            'span',
+            { 'class': 'text-gray' },
+            '- He/Him'
+         )
+      ),
+      Object(preact_min["h"])(
+         'div',
+         { 'class': 'row' },
+         Object(preact_min["h"])(form_inputs_Radio, { label: 'Other', name: 'gender' })
+      )
+   )
+);
+
+var create_shrine_form_step3_CreateShrineFormStep3 = function CreateShrineFormStep3(props) {
+   return Object(preact_min["h"])(
+      'div',
+      null,
+      create_shrine_form_step3__ref,
+      create_shrine_form_step3__ref2,
+      Object(preact_min["h"])(next_step_button_NextStepButton, {
+         onClick: props.handleNextStep
+      })
+   );
+};
+
+
+// CONCATENATED MODULE: ./routes/create-shrine/components/create-shrine-form-step4.js
+
+
+
+
+
+
+var create_shrine_form_step4__ref = Object(preact_min["h"])(
+   'h1',
+   null,
+   'Create a New Shrine'
+);
+
+var create_shrine_form_step4__ref2 = Object(preact_min["h"])(
+   'h4',
+   null,
+   'Step 4'
+);
+
+var create_shrine_form_step4_CreateShrineFormStep4 = function CreateShrineFormStep4(props) {
+   return Object(preact_min["h"])(
+      'div',
+      null,
+      create_shrine_form_step4__ref,
+      create_shrine_form_step4__ref2,
+      Object(preact_min["h"])(next_step_button_NextStepButton, {
+         onClick: props.handleNextStep
+      })
+   );
+};
+
+
+// CONCATENATED MODULE: ./routes/create-shrine/components/create-shrine-form-step5.js
+
+
+
+
+
+
+var create_shrine_form_step5__ref = Object(preact_min["h"])(
+   'h1',
+   null,
+   'Create a New Shrine'
+);
+
+var create_shrine_form_step5__ref2 = Object(preact_min["h"])(
+   'h4',
+   null,
+   'Step 5'
+);
+
+var create_shrine_form_step5_CreateShrineFormStep5 = function CreateShrineFormStep5(props) {
+   return Object(preact_min["h"])(
+      'div',
+      null,
+      create_shrine_form_step5__ref,
+      create_shrine_form_step5__ref2,
+      Object(preact_min["h"])(next_step_button_NextStepButton, {
+         onClick: props.handleNextStep
+      })
+   );
+};
+
+
+// CONCATENATED MODULE: ./routes/create-shrine/components/create-shrine-form-step6.js
+
+
+
+
+
+
+var create_shrine_form_step6__ref = Object(preact_min["h"])(
+   'h1',
+   null,
+   'Create a New Shrine'
+);
+
+var create_shrine_form_step6__ref2 = Object(preact_min["h"])(
+   'h4',
+   null,
+   'Step 6'
+);
+
+var create_shrine_form_step6_CreateShrineFormStep6 = function CreateShrineFormStep6(props) {
+   return Object(preact_min["h"])(
+      'div',
+      null,
+      create_shrine_form_step6__ref,
+      create_shrine_form_step6__ref2,
+      Object(preact_min["h"])(next_step_button_NextStepButton, {
+         onClick: props.handleNextStep
+      })
+   );
+};
+
+
+// CONCATENATED MODULE: ./routes/create-shrine/components/create-shrine-form-container.js
+
+
+function create_shrine_form_container__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function create_shrine_form_container__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function create_shrine_form_container__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+
+
+
+var create_shrine_form_container_CreateShrineFormContainer = function (_Component) {
+   create_shrine_form_container__inherits(CreateShrineFormContainer, _Component);
+
+   function CreateShrineFormContainer() {
+      var _temp, _this, _ret;
+
+      create_shrine_form_container__classCallCheck(this, CreateShrineFormContainer);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+         args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = create_shrine_form_container__possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.state = {
+         step: 1
+      }, _this._handleNextStep = function () {
+         var next = _this.state.step + 1;
+         _this.setState({ step: next });
+      }, _temp), create_shrine_form_container__possibleConstructorReturn(_this, _ret);
+   }
+
+   CreateShrineFormContainer.prototype.render = function render(props) {
+      switch (this.state.step) {
+         case 1:
+            return Object(preact_min["h"])(create_shrine_form_step1_CreateShrineFormStep1, {
+               handleNextStep: this._handleNextStep
+            });
+            break;
+
+         case 2:
+            return Object(preact_min["h"])(create_shrine_form_step2_CreateShrineFormStep2, {
+               handleNextStep: this._handleNextStep
+            });
+            break;
+
+         case 3:
+            return Object(preact_min["h"])(create_shrine_form_step3_CreateShrineFormStep3, {
+               handleNextStep: this._handleNextStep
+            });
+            break;
+
+         case 4:
+            return Object(preact_min["h"])(create_shrine_form_step4_CreateShrineFormStep4, {
+               handleNextStep: this._handleNextStep
+            });
+            break;
+
+         case 5:
+            return Object(preact_min["h"])(create_shrine_form_step5_CreateShrineFormStep5, {
+               handleNextStep: this._handleNextStep
+            });
+            break;
+
+         case 6:
+            return Object(preact_min["h"])(create_shrine_form_step6_CreateShrineFormStep6, {
+               handleNextStep: this._handleNextStep
+            });
+            break;
+      }
+   };
+
+   return CreateShrineFormContainer;
+}(preact_min["Component"]);
+
+
+// CONCATENATED MODULE: ./components/menu/index.js
+
+
+var menu_Menu = function Menu(props) {
+   return Object(preact_min["h"])(
+      "ul",
+      { "class": "menu" },
+      props.children
+   );
+};
+
+var menu_MenuItem = function MenuItem(props) {
+   return Object(preact_min["h"])(
+      "li",
+      { "class": "menu-item" },
+      props.children
+   );
+};
+
+var menu_MenuHeader = function MenuHeader(props) {
+   return Object(preact_min["h"])("li", { "class": "divider", "data-content": props.children });
+};
+
+var menu_MenuDivider = function MenuDivider(props) {
+   return Object(preact_min["h"])("li", { "class": "divider", "data-content": props.children });
+};
+
+
+// CONCATENATED MODULE: ./routes/create-shrine/components/avatar-rail.js
+
+
+
+
+
+var avatar_rail__ref = Object(preact_min["h"])(
+   menu_Menu,
+   null,
+   Object(preact_min["h"])(
+      menu_MenuDivider,
+      null,
+      'Shrine Basics'
+   ),
+   Object(preact_min["h"])(
+      menu_MenuItem,
+      null,
+      '1. Name'
+   ),
+   Object(preact_min["h"])(
+      menu_MenuItem,
+      null,
+      '2. Photo'
+   ),
+   Object(preact_min["h"])(
+      menu_MenuItem,
+      null,
+      '3. Information'
+   ),
+   Object(preact_min["h"])(
+      menu_MenuDivider,
+      null,
+      'Invite Others'
+   ),
+   Object(preact_min["h"])(
+      menu_MenuItem,
+      null,
+      '4. Invitation Template'
+   ),
+   Object(preact_min["h"])(
+      menu_MenuItem,
+      null,
+      '5. Customize Invitation'
+   ),
+   Object(preact_min["h"])(
+      menu_MenuItem,
+      null,
+      '6. Invite Collaborators'
+   )
+);
+
+var AvatarRail = function AvatarRail(props) {
+   return avatar_rail__ref;
+};
+
+
+// CONCATENATED MODULE: ./routes/create-shrine/index.js
+
+
+function create_shrine__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function create_shrine__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function create_shrine__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+var create_shrine__ref = Object(preact_min["h"])(flex_container_FlexContainer, {
+   avatarRail: Object(preact_min["h"])(
+      'div',
+      { 'class': 'm-2' },
+      Object(preact_min["h"])(AvatarRail, null)
+   ),
+   formRail: Object(preact_min["h"])(
+      'div',
+      { 'class': 'm-2' },
+      Object(preact_min["h"])(create_shrine_form_container_CreateShrineFormContainer, null)
+   )
+});
+
+var CreateShrine = function (_Component) {
+   create_shrine__inherits(CreateShrine, _Component);
+
+   function CreateShrine() {
+      create_shrine__classCallCheck(this, CreateShrine);
+
+      return create_shrine__possibleConstructorReturn(this, _Component.apply(this, arguments));
+   }
+
+   CreateShrine.prototype.render = function render(props) {
+      return create_shrine__ref;
+   };
+
+   return CreateShrine;
+}(preact_min["Component"]);
+
+/* harmony default export */ var create_shrine = (CreateShrine);
 // CONCATENATED MODULE: ./components/navbar.js
 
 
@@ -2325,7 +3051,7 @@ var navbar__ref = Object(preact_min["h"])(
       { 'class': 'navbar-section' },
       Object(preact_min["h"])(
          preact_router_es_Link,
-         { 'class': 'btn btn-primary', activeClassName: 'active', href: '#' },
+         { 'class': 'btn btn-primary', activeClassName: 'active', href: '/create-shrine' },
          'Start a Shrine'
       ),
       Object(preact_min["h"])(
@@ -2378,12 +3104,17 @@ function index__inherits(subClass, superClass) { if (typeof superClass !== "func
 
 
 
+
 // get that navbar
 
 
 var index__ref = Object(preact_min["h"])(navbar, null);
 
 var index__ref2 = Object(preact_min["h"])(home, { path: '/' });
+
+var index__ref3 = Object(preact_min["h"])(create_shrine, {
+   path: '/create-shrine'
+});
 
 var index_App = function (_Component) {
    index__inherits(App, _Component);
@@ -2466,7 +3197,8 @@ var index_App = function (_Component) {
                user: this.state.user,
                loginToken: this.state.loginToken,
                handleLogout: this._handleLogout
-            })
+            }),
+            index__ref3
          )
       );
    };
@@ -2478,10 +3210,126 @@ var index_App = function (_Component) {
 
 /***/ }),
 
+/***/ "LLCR":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = merge;
+function merge() {
+  var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var defaults = arguments[1];
+
+  for (var key in defaults) {
+    if (typeof obj[key] === 'undefined') {
+      obj[key] = defaults[key];
+    }
+  }
+  return obj;
+}
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "cddD":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = isFQDN;
+
+var _assertString = __webpack_require__("fcJk");
+
+var _assertString2 = _interopRequireDefault(_assertString);
+
+var _merge = __webpack_require__("LLCR");
+
+var _merge2 = _interopRequireDefault(_merge);
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+var default_fqdn_options = {
+  require_tld: true,
+  allow_underscores: false,
+  allow_trailing_dot: false
+};
+
+function isFQDN(str, options) {
+  (0, _assertString2.default)(str);
+  options = (0, _merge2.default)(options, default_fqdn_options);
+
+  /* Remove the optional trailing dot before checking validity */
+  if (options.allow_trailing_dot && str[str.length - 1] === '.') {
+    str = str.substring(0, str.length - 1);
+  }
+  var parts = str.split('.');
+  if (options.require_tld) {
+    var tld = parts.pop();
+    if (!parts.length || !/^([a-z\u00a1-\uffff]{2,}|xn[a-z0-9-]{2,})$/i.test(tld)) {
+      return false;
+    }
+    // disallow spaces
+    if (/[\s\u2002-\u200B\u202F\u205F\u3000\uFEFF\uDB40\uDC20]/.test(tld)) {
+      return false;
+    }
+  }
+  for (var part, i = 0; i < parts.length; i++) {
+    part = parts[i];
+    if (options.allow_underscores) {
+      part = part.replace(/_/g, '');
+    }
+    if (!/^[a-z\u00a1-\uffff0-9-]+$/i.test(part)) {
+      return false;
+    }
+    // disallow full-width chars
+    if (/[\uff01-\uff5e]/.test(part)) {
+      return false;
+    }
+    if (part[0] === '-' || part[part.length - 1] === '-') {
+      return false;
+    }
+  }
+  return true;
+}
+module.exports = exports['default'];
+
+/***/ }),
+
 /***/ "f5Gx":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "fcJk":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = assertString;
+function assertString(input) {
+  var isString = typeof input === 'string' || input instanceof String;
+
+  if (!isString) {
+    throw new TypeError('This library (validator.js) validates strings only');
+  }
+}
+module.exports = exports['default'];
 
 /***/ }),
 
