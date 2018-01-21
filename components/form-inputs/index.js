@@ -1,5 +1,17 @@
 import { h, Component } from 'preact';
 
+const Radio = ({ label, name, ...props }) => (
+   <label class="form-radio">
+      <input name={ name } type="radio" />
+      <i class="form-icon" />
+      { label }
+   </label>
+)
+
+const Label = (props) => (
+   <label class="form-label">{ props.children }</label>
+)
+
 const EmailInput = (props) => (
    <div>
       <label class="form-label">Email</label>
@@ -96,4 +108,12 @@ const ShowPasswordSwitch = (props) => (
    </div>
 )
 
-export { EmailInput, TextInput, NumberInput, PasswordInput, FileInput };
+export { 
+   EmailInput,
+   TextInput,
+   NumberInput, 
+   PasswordInput, 
+   FileInput,
+   Radio,
+   Label
+};
