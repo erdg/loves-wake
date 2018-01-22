@@ -9,10 +9,11 @@ const CreateShrineFormStep1 = (props) => {
          <h4>Step 1</h4>
          <TextInput label="First Name" />
          <TextInput label="Last Name" />
-         <NextStepButton 
-            onClick={ props.handleNextStep }
-         />
-
+         <div class="row my-2">
+            <NextStepButton 
+               onClick={ props.handleNextStep }
+            />
+         </div>
       </div>
    );
 }

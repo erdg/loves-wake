@@ -2,6 +2,7 @@ import { h, Component } from 'preact';
 
 import { TextInput, Radio, Label } from '../../../components/form-inputs/';
 import { NextStepButton } from '../next-step-button';
+import { PrevStepButton } from '../prev-step-button';
 
 const CreateShrineFormStep3 = (props) => {
    return (
@@ -23,9 +24,14 @@ const CreateShrineFormStep3 = (props) => {
             </div>
          </div>
 
-         <NextStepButton 
-            onClick={ props.handleNextStep }
-         />
+         <div class="row my-2">
+            <PrevStepButton
+               onClick={ props.handlePrevStep }
+            />
+            <NextStepButton 
+               onClick={ props.handleNextStep }
+            />
+         </div>
 
       </div>
    );

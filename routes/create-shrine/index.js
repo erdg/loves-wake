@@ -10,8 +10,13 @@ class CreateShrine extends Component {
    };
 
    _handleNextStep = () => {
-      let next = this.state.step + 1;
-      this.setState({ step: next });
+      let step = this.state.step + 1;
+      this.setState({ step: step });
+   }
+
+   _handlePrevStep = () => {
+      let step = this.state.step - 1;
+      this.setState({ step: step });
    }
 
    render (props) {
@@ -31,6 +36,7 @@ class CreateShrine extends Component {
                   <CreateShrineFormContainer
                      step={ step }
                      handleNextStep={ this._handleNextStep }
+                     handlePrevStep={ this._handlePrevStep }
                   />
                </div>
             }

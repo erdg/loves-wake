@@ -23,6 +23,7 @@ class CreateShrineFormContainer extends Component {
             return (
                <CreateShrineFormStep2 
                   handleNextStep={ props.handleNextStep }
+                  handlePrevStep={ props.handlePrevStep }
                />
             );
             break;
@@ -31,6 +32,7 @@ class CreateShrineFormContainer extends Component {
             return (
                <CreateShrineFormStep3
                   handleNextStep={ props.handleNextStep }
+                  handlePrevStep={ props.handlePrevStep }
                />
             );
             break;
@@ -39,6 +41,7 @@ class CreateShrineFormContainer extends Component {
             return (
                <CreateShrineFormStep4
                   handleNextStep={ props.handleNextStep }
+                  handlePrevStep={ props.handlePrevStep }
                />
             );
             break;
@@ -47,6 +50,7 @@ class CreateShrineFormContainer extends Component {
             return (
                <CreateShrineFormStep5
                   handleNextStep={ props.handleNextStep }
+                  handlePrevStep={ props.handlePrevStep }
                />
             );
             break;
@@ -55,6 +59,7 @@ class CreateShrineFormContainer extends Component {
             return (
                <CreateShrineFormStep6
                   handleNextStep={ props.handleNextStep }
+                  handlePrevStep={ props.handlePrevStep }
                />
             );
             break;

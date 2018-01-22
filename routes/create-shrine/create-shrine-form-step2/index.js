@@ -2,6 +2,7 @@ import { h, Component } from 'preact';
 
 import { FileInput } from '../../../components/form-inputs/';
 import { NextStepButton } from '../next-step-button';
+import { PrevStepButton } from '../prev-step-button';
 
 const CreateShrineFormStep2 = (props) => {
    return (
@@ -11,9 +12,14 @@ const CreateShrineFormStep2 = (props) => {
             class="text-ellipsis"
             label="Upload a Photo" 
          />
-         <NextStepButton 
-            onClick={ props.handleNextStep } 
-         />
+         <div class="row my-2">
+            <PrevStepButton 
+               onClick={ props.handlePrevStep }
+            />
+            <NextStepButton 
+               onClick={ props.handleNextStep } 
+            />
+         </div>
       </div>
    );
 }
