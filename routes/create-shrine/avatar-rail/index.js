@@ -6,14 +6,14 @@ const AvatarRail = (props) => {
    return (
       <Menu class="avatar-rail-menu">
             <MenuDivider>Shrine Basics</MenuDivider>
-         <MenuItem>Name</MenuItem>
-         <MenuItem>Photo</MenuItem>
-         <MenuItem>Information</MenuItem>
+         <MenuItem class={ props.step === 1 && "arrow-box" }>Name</MenuItem>
+         <MenuItem class={ props.step === 2 && "arrow-box" }>Photo</MenuItem>
+         <MenuItem class={ props.step === 3 && "arrow-box" }>Information</MenuItem>
 
          <MenuDivider>Invite Others</MenuDivider>
-         <MenuItem>Invitation Template</MenuItem>
-         <MenuItem>Customize Invitation</MenuItem>
-         <MenuItem>Invite Collaborators</MenuItem>
+         <MenuItem class={ props.step === 4 && "arrow-box" }>Invitation Template</MenuItem>
+         <MenuItem class={ props.step === 5 && "arrow-box" }>Customize Invitation</MenuItem>
+         <MenuItem class={ props.step === 6 && "arrow-box" }>Invite Collaborators</MenuItem>
       </Menu>
    )
 }
