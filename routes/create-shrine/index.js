@@ -20,14 +20,16 @@ class CreateShrine extends Component {
          <FlexContainer 
             avatarRail={
                <div class="m-2">
-                  <AvatarRail />
+                  <AvatarRail 
+                     step={ step }
+                  />
                </div>
             }
             formRail={
                <div class="m-2">
                   <h1>Create a New Shrine</h1>
                   <CreateShrineFormContainer
-                     step={ this.state.step }
+                     step={ step }
                      handleNextStep={ this._handleNextStep }
                   />
                </div>
