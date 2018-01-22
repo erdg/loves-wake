@@ -9,7 +9,7 @@ const Menu = (props) => {
 
 const MenuItem = (props) => {
    return (
-      <li class="menu-item">
+      <li class={"menu-item " + props.class }>
          {props.children}
       </li>
    )
