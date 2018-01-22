@@ -1,7 +1,7 @@
 const NextStepButton = (props) => {
    return (
       <button
-         class="btn btn-primary float-right mt-2"
+         class="btn btn-primary float-right"
          onClick={ props.onClick }
       >
          Next Step
