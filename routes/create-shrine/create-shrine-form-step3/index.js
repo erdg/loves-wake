@@ -1,12 +1,11 @@
 import { h, Component } from 'preact';
 
 import { TextInput, Radio, Label } from '../../../components/form-inputs/';
-import { NextStepButton } from './next-step-button';
+import { NextStepButton } from '../next-step-button';
 
 const CreateShrineFormStep3 = (props) => {
    return (
       <div>
-         <h1>Create a New Shrine</h1>
          <div>
             <Label>Gender</Label>
             <div class="col mx-2">

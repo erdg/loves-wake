@@ -4,16 +4,16 @@ import { Menu, MenuItem, MenuHeader, MenuDivider } from '../../../components/men
 
 const AvatarRail = (props) => {
    return (
-      <Menu>
+      <Menu class="avatar-rail-menu">
             <MenuDivider>Shrine Basics</MenuDivider>
-         <MenuItem>1. Name</MenuItem>
-         <MenuItem>2. Photo</MenuItem>
-         <MenuItem>3. Information</MenuItem>
+         <MenuItem>Name</MenuItem>
+         <MenuItem>Photo</MenuItem>
+         <MenuItem>Information</MenuItem>
 
          <MenuDivider>Invite Others</MenuDivider>
-         <MenuItem>4. Invitation Template</MenuItem>
-         <MenuItem>5. Customize Invitation</MenuItem>
-         <MenuItem>6. Invite Collaborators</MenuItem>
+         <MenuItem>Invitation Template</MenuItem>
+         <MenuItem>Customize Invitation</MenuItem>
+         <MenuItem>Invite Collaborators</MenuItem>
       </Menu>
    )
 }
