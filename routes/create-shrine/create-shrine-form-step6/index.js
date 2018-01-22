@@ -7,9 +7,6 @@ const CreateShrineFormStep6 = (props) => {
    return (
       <div>
          <h4>Step 6</h4>
-         <NextStepButton 
-            onClick={ props.handleNextStep }
-         />
 
       </div>
    );
