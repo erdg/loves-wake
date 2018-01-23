@@ -14,6 +14,13 @@ class CreateShrineFormContainer extends Component {
          case 1:
             return (
                <CreateShrineFormStep1
+
+                  firstName={ props.firstName }
+                  handleFirstNameChange={ props.handleFirstNameChange }
+
+                  lastName={ props.lastName }
+                  handleLastNameChange= { props.handleLastNameChange }
+
                   handleNextStep={ props.handleNextStep }
                />
             );

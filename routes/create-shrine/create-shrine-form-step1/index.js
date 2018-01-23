@@ -7,8 +7,16 @@ const CreateShrineFormStep1 = (props) => {
    return (
       <div>
          <h4>Step 1</h4>
-         <TextInput label="First Name" />
-         <TextInput label="Last Name" />
+         <TextInput 
+            label="First Name" 
+            firstName={ props.firstName }
+            onChange={ props.handleFirstNameChange }
+         />
+         <TextInput 
+            label="Last Name" 
+            lastName={ props.lastName }
+            onChange={ props.handleLastNameChange }
+         />
          <div class="row my-2">
             <NextStepButton 
                onClick={ props.handleNextStep }

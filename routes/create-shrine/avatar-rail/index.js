@@ -5,7 +5,10 @@ import { Menu, MenuItem, MenuHeader, MenuDivider } from '../../../components/men
 const AvatarRail = (props) => {
    return (
       <Menu class="avatar-rail-menu">
-            <MenuDivider>Shrine Basics</MenuDivider>
+         <MenuItem class="text-center">
+            <h3>{props.name}</h3>
+         </MenuItem>
+         <MenuDivider>Shrine Basics</MenuDivider>
          <MenuItem class={ props.step === 1 && "arrow-box" }>Name</MenuItem>
          <MenuItem class={ props.step === 2 && "arrow-box" }>Photo</MenuItem>
          <MenuItem class={ props.step === 3 && "arrow-box" }>Information</MenuItem>
