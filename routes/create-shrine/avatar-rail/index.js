@@ -1,13 +1,22 @@
 import { h, Component } from 'preact';
 
 import { Menu, MenuItem, MenuHeader, MenuDivider } from '../../../components/menu/';
+import { Avatar } from '../../../components/avatar';
 
 const AvatarRail = (props) => {
+   let initials = props.firstName.charAt(0) + props.lastName.charAt(0);
    return (
       <Menu class="avatar-rail-menu">
-         <MenuItem class="text-center">
-            <h3>{props.name}</h3>
-         </MenuItem>
+         { 
+            props.step > 1 && 
+               <Avatar class="avatar-xl centered" data={ initials } />
+         }
+         {
+            props.step > 1 &&
+               <MenuItem>
+                  <h4 class="text-center mt-1">{props.firstName}</h4>
+               </MenuItem>
+         }
          <MenuDivider>Shrine Basics</MenuDivider>
          <MenuItem class={ props.step === 1 && "arrow-box" }>Name</MenuItem>
          <MenuItem class={ props.step === 2 && "arrow-box" }>Photo</MenuItem>

@@ -44,7 +44,8 @@ class CreateShrine extends Component {
                <div class="m-2">
                   <AvatarRail 
                      step={ step }
-                     name={ firstName }
+                     firstName={ firstName }
+                     lastName={ lastName }
                   />
                </div>
             }
