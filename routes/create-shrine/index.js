@@ -52,7 +52,13 @@ class CreateShrine extends Component {
 
             formRail={
                <div class="m-2">
-                  <h1>Create a New Shrine</h1>
+                  {
+                     step > 1 && firstName 
+                        ?
+                        <h2 class="text-center">{firstName}'s Shrine</h2>
+                        :
+                        <h2 class="text-center"> Create a New Shrine</h2>
+                  }
                   <CreateShrineFormContainer
                      step={ step }
                      handleNextStep={ this._handleNextStep }
