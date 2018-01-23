@@ -7,7 +7,7 @@ import { PrevStepButton } from '../prev-step-button';
 const CreateShrineFormStep2 = (props) => {
    return (
       <div>
-         <h4>Step 2</h4>
+         <h6 class="text-center text-gray">Step 2 of 6</h6>
          <FileInput 
             class="text-ellipsis"
             label="Upload a Photo" 

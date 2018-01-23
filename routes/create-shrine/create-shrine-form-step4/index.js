@@ -8,7 +8,7 @@ const CreateShrineFormStep4 = (props) => {
    return (
       <div>
 
-         <h4>Step 4</h4>
+         <h6 class="text-center text-gray">Step 4 of 6</h6>
 
          <div class="row my-2">
             <PrevStepButton

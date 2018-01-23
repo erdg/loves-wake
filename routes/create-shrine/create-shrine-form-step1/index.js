@@ -6,7 +6,7 @@ import { NextStepButton } from '../next-step-button';
 const CreateShrineFormStep1 = (props) => {
    return (
       <div>
-         <h4>Step 1</h4>
+         <h6 class="text-center text-gray">Step 1 of 6</h6>
          <TextInput 
             label="First Name" 
             firstName={ props.firstName }

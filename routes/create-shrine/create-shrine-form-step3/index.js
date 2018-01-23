@@ -7,6 +7,7 @@ import { PrevStepButton } from '../prev-step-button';
 const CreateShrineFormStep3 = (props) => {
    return (
       <div>
+         <h6 class="text-center text-gray">Step 3 of 6</h6>
          <div>
             <Label>Gender</Label>
             <div class="col mx-2">
