@@ -2,6 +2,12 @@
    font-size: x-small;
 }
 
+.avatar.avatar-xxl {
+   font-size: 2.6rem;
+   height: 6rem;
+   width: 6rem;
+}
+
 .arrow-box {
    position: relative;
    color: white;

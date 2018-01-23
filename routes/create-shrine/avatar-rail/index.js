@@ -9,12 +9,12 @@ const AvatarRail = (props) => {
       <Menu class="avatar-rail-menu">
          { 
             props.step > 1 && 
-               <Avatar class="avatar-xl centered" data={ initials } />
+               <Avatar class="avatar-xxl centered" data={ initials } />
          }
          {
             props.step > 1 &&
                <MenuItem>
-                  <h4 class="text-center mt-1">{props.firstName}</h4>
+                  <h4 class="text-center m-2">{props.firstName}</h4>
                </MenuItem>
          }
          <MenuDivider>Shrine Basics</MenuDivider>
