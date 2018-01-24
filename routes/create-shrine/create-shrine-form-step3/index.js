@@ -12,7 +12,6 @@ import { DateOfDeath } from './date-of-death';
 const CreateShrineFormStep3 = (props) => {
    return (
       <div>
-         <h6 class="text-center text-gray">Step 3 of 6</h6>
 
          <ChooseGender 
             firstName={ props.firstName }

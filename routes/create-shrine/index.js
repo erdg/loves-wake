@@ -82,6 +82,8 @@ class CreateShrine extends Component {
 
             formRail={
                <div class="m-2">
+
+                  {/* dynamic header */}
                   {
                      step > 1 && firstName 
                         ?
@@ -89,6 +91,11 @@ class CreateShrine extends Component {
                         :
                         <h2 class="text-center"> Create a New Shrine</h2>
                   }
+
+                  <p class="text-center text-gray">
+                     Step {step} of 6
+                  </p>
+
                   <CreateShrineFormContainer
                      step={ step }
                      handleNextStep={ this._handleNextStep }
