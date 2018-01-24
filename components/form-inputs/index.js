@@ -2,7 +2,11 @@ import { h, Component } from 'preact';
 
 const Radio = ({ label, name, ...props }) => (
    <label class="form-radio">
-      <input name={ name } type="radio" />
+      <input 
+         {...props}
+         name={name} 
+         type="radio" 
+      />
       <i class="form-icon" />
       { label }
    </label>
