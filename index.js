@@ -11,6 +11,7 @@ import './css/spectre-icons.min.css';
 import './css/flex-container.css';
 import './css/dialog.css';
 import './css/avatar-rail.css';
+import './css/spectre-overide.css';
 
 // routes
 import Login  from './routes/login/';
