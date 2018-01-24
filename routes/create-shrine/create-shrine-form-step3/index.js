@@ -4,26 +4,14 @@ import { TextInput, Radio, Label } from '../../../components/form-inputs/';
 import { NextStepButton } from '../next-step-button';
 import { PrevStepButton } from '../prev-step-button';
 
+import { ChooseGender } from './choose-gender';
+
 const CreateShrineFormStep3 = (props) => {
    return (
       <div>
          <h6 class="text-center text-gray">Step 3 of 6</h6>
-         <div>
-            <Label>Gender</Label>
-            <div class="col mx-2">
-               <div class="row">
-                  <Radio label="Female" name="gender" />
-                  <span class="text-gray">- She/Her</span>
-               </div>
-               <div class="row">
-                  <Radio label="Male" name="gender" />
-                  <span class="text-gray">- He/Him</span>
-               </div>
-               <div class="row">
-                  <Radio label="Other" name="gender" />
-               </div>
-            </div>
-         </div>
+
+         <ChooseGender />
 
          <div class="row my-2">
             <PrevStepButton
