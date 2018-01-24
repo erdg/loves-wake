@@ -12,7 +12,13 @@ const CreateShrineFormStep3 = (props) => {
       <div>
          <h6 class="text-center text-gray">Step 3 of 6</h6>
 
-         <ChooseGender />
+         <ChooseGender 
+            firstName={ props.firstName }
+            subjPronoun={ props.subjPronoun }
+            objPronoun={ props.objPronoun }
+            posPronoun={ props.posPronoun }
+            handleGenderChange={ props.handleGenderChange } 
+         />
 
          <DateOfBirth 
             firstName={ props.firstName }

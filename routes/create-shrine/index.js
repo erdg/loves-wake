@@ -9,7 +9,10 @@ class CreateShrine extends Component {
       step: 1,
 
       firstName: '',
-      lastName: ''
+      lastName: '',
+      subjPronoun: '',
+      objPronoun: '',
+      posPronoun: ''
    };
 
    _handleNextStep = () => {
@@ -28,6 +31,22 @@ class CreateShrine extends Component {
 
    _handleLastNameChange = (e) => {
       this.setState({ lastName: e.target.value })
+   }
+
+   _handleGenderChange = (e) => {
+      if ( e.target.value === 'Male' ) {
+         this.setState({ 
+            subjPronoun: 'he', 
+            objPronoun: 'him',
+            posPronoun: 'his'
+         });
+      } else if ( e.target.value === 'Female' ) {
+         this.setState({ 
+            subjPronoun: 'she', 
+            objPronoun: 'her',
+            posPronoun: 'her'
+         });
+      }
    }
 
    render (props) {
@@ -68,6 +87,11 @@ class CreateShrine extends Component {
                      lastName={ lastName }
                      handleFirstNameChange={ this._handleFirstNameChange }
                      handleLastNameChange={ this._handleLastNameChange }
+
+                     subjPronoun={ this.state.subjPronoun }
+                     objPronoun={ this.state.objPronoun }
+                     posPronoun={ this.state.posPronoun }
+                     handleGenderChange={ this._handleGenderChange }
                   />
                </div>
             }

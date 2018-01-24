@@ -39,6 +39,12 @@ class CreateShrineFormContainer extends Component {
             return (
                <CreateShrineFormStep3
                   firstName={ props.firstName }
+
+                  subjPronoun={ props.subjPronoun }
+                  objPronoun={ props.objPronoun }
+                  posPronoun={ props.posPronoun }
+                  handleGenderChange={ props.handleGenderChange }
+
                   handleNextStep={ props.handleNextStep }
                   handlePrevStep={ props.handlePrevStep }
                />

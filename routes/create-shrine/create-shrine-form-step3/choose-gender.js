@@ -10,19 +10,34 @@ const ChooseGender = (props) => (
          <div class="card">
             <div class="card-body">
                <strong>We'll use this answer to phrase our questions:</strong>
-               <p>Example: How did...</p>
+               <div>
+                  <p>Think about { props.firstName }.</p>
+                  { props.subjPronoun ?
+                     <p>How did { props.subjPronoun }... What was { props.posPronoun } favorite...</p>
+                     :
+                     <p>How did... </p>
+                  }
+               </div>
             </div>
          </div>
       </Dialog>
 
-      <Label>Gender</Label>
-      <div class="col mx-2">
+      <Label>Gender & Pronoun</Label>
+      <div onChange={ props.handleGenderChange } class="col mx-2">
          <div class="row">
-            <Radio label="Female" name="gender" />
+            <Radio 
+               label="Female" 
+               value="Female"
+               name="gender" 
+            />
             <span class="text-gray">- She/Her</span>
          </div>
          <div class="row">
-            <Radio label="Male" name="gender" />
+            <Radio 
+               label="Male" 
+               value="Male"
+               name="gender" 
+            />
             <span class="text-gray">- He/Him</span>
          </div>
          <div class="row">
