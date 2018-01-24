@@ -8,6 +8,12 @@
    flex: 0 0 59px;
 }
 
+@media (max-width: 1032px) and (min-width: 960px) {
+   .left-rail {
+      flex: 0 16 59px;
+   }
+}
+
 .left-gutter {
    /* background-color: gray; */
    flex: 2 2 auto;
