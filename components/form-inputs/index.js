@@ -37,6 +37,19 @@ const TextInput = ({ label, ...props}) => (
    </div>
 )
 
+const DateInput = ({ label, ...props }) => (
+   <div>
+      <label class="form-label">
+         {label}
+      </label>
+      <input
+         {...props}
+         type="date"
+         class="form-input"
+      />
+   </div>
+)
+
 const FileInput = ({ label, ...props}) => (
    <div>
       <label class="form-label">
