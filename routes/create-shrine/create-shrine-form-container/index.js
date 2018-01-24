@@ -38,6 +38,7 @@ class CreateShrineFormContainer extends Component {
          case 3:
             return (
                <CreateShrineFormStep3
+                  firstName={ props.firstName }
                   handleNextStep={ props.handleNextStep }
                   handlePrevStep={ props.handlePrevStep }
                />
