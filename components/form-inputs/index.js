@@ -125,6 +125,7 @@ export {
    EmailInput,
    TextInput,
    NumberInput, 
+   DateInput,
    PasswordInput, 
    FileInput,
    Radio,
