@@ -45,6 +45,9 @@ class CreateShrineFormContainer extends Component {
                   posPronoun={ props.posPronoun }
                   handleGenderChange={ props.handleGenderChange }
 
+                  deceased={ props.deceased }
+                  handleDeath={ props.handleDeath }
+
                   handleNextStep={ props.handleNextStep }
                   handlePrevStep={ props.handlePrevStep }
                />

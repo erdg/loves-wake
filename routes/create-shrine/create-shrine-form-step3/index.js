@@ -7,6 +7,7 @@ import { PrevStepButton } from '../prev-step-button';
 import { ChooseGender } from './choose-gender';
 import { DateOfBirth } from './date-of-birth';
 import { StillWithUs } from './still-with-us';
+import { DateOfDeath } from './date-of-death';
 
 const CreateShrineFormStep3 = (props) => {
    return (
@@ -26,6 +27,12 @@ const CreateShrineFormStep3 = (props) => {
          />
 
          <StillWithUs
+            firstName={ props.firstName }
+            handleDeath={ props.handleDeath }
+         />
+
+         <DateOfDeath 
+            deceased={ props.deceased }
             firstName={ props.firstName }
          />
 

@@ -12,7 +12,8 @@ class CreateShrine extends Component {
       lastName: '',
       subjPronoun: '',
       objPronoun: '',
-      posPronoun: ''
+      posPronoun: '',
+      deceased: false
    };
 
    _handleNextStep = () => {
@@ -46,6 +47,16 @@ class CreateShrine extends Component {
             objPronoun: 'her',
             posPronoun: 'her'
          });
+      }
+   }
+
+   // this is a terrible function name...
+   // as if death could be handled with with 3 lines of code.
+   _handleDeath = (e) => {
+      if ( e.target.value === "true" ) {
+         this.setState({ deceased: true });
+      } else if ( e.target.value === "false" ) {
+         this.setState({ deceased: false });
       }
    }
 
@@ -92,6 +103,9 @@ class CreateShrine extends Component {
                      objPronoun={ this.state.objPronoun }
                      posPronoun={ this.state.posPronoun }
                      handleGenderChange={ this._handleGenderChange }
+
+                     deceased={ this.state.deceased }
+                     handleDeath={ this._handleDeath }
                   />
                </div>
             }

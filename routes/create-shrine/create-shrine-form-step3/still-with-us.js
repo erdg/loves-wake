@@ -10,23 +10,26 @@ const StillWithUs = (props) => (
       </Dialog>
 
       <Label>Is { props.firstName } still with us?</Label>
-      <div onChange={ props.handleGenderChange } class="col mx-2">
+      <div onChange={ props.handleDeath } class="col mx-2">
          <div class="row">
             <Radio 
                label="Still alive and well" 
-               value="alive"
+               name="deceased"
+               value="false"
             />
          </div>
          <div class="row">
             <Radio 
                label="Will pass soon" 
-               value="passing"
+               name="deceased"
+               value="false"
             />
          </div>
          <div class="row">
             <Radio 
                label="Passed away" 
-               value="passed"
+               name="deceased"
+               value="true"
             />
          </div>
       </div>
