@@ -1506,6 +1506,7 @@ function signup_form__inherits(subClass, superClass) { if (typeof superClass !==
 
 
 
+
 var signup_form__ref = Object(preact_min["h"])(
    'h1',
    null,
@@ -1535,7 +1536,7 @@ var signup_form_SignupForm = function (_Component) {
          { 'class': formClasses },
          signup_form__ref,
          Object(preact_min["h"])(
-            Toast,
+            toast_Toast,
             { error: true, active: props.showServerError },
             props.serverError
          ),
