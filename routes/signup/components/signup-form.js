@@ -28,6 +28,10 @@ class SignupForm extends Component {
 
             <h1>Signup</h1>
 
+            <Toast error active={props.showServerError}>
+               {props.serverError}
+            </Toast>
+
             <EmailInput 
                email={props.email}
                handleEmailChange={props.handleEmailChange}
