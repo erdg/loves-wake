@@ -3,6 +3,7 @@ import classNames from 'classnames';
 
 import { EmailInput, PasswordInput } from './signup-form-inputs';
 import { Dialog } from '../../../components/dialog';
+import { Toast } from '../../../components/toast';
 
 class SignupForm extends Component {
    render (props) {
