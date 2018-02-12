@@ -1534,6 +1534,11 @@ var signup_form_SignupForm = function (_Component) {
          'div',
          { 'class': formClasses },
          signup_form__ref,
+         Object(preact_min["h"])(
+            Toast,
+            { error: true, active: props.showServerError },
+            props.serverError
+         ),
          Object(preact_min["h"])(signup_form_inputs_EmailInput, {
             email: props.email,
             handleEmailChange: props.handleEmailChange
