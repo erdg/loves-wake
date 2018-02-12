@@ -164,6 +164,13 @@ module.exports = exports['default'];
 
 /***/ }),
 
+/***/ "87W1":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "CFqi":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -877,6 +884,14 @@ var flex_container_default = /*#__PURE__*/__webpack_require__.n(flex_container);
 // EXTERNAL MODULE: ./css/dialog.css
 var dialog = __webpack_require__("CNFk");
 var dialog_default = /*#__PURE__*/__webpack_require__.n(dialog);
+
+// EXTERNAL MODULE: ./css/avatar-rail.css
+var avatar_rail = __webpack_require__("WWj2");
+var avatar_rail_default = /*#__PURE__*/__webpack_require__.n(avatar_rail);
+
+// EXTERNAL MODULE: ./css/spectre-overide.css
+var spectre_overide = __webpack_require__("87W1");
+var spectre_overide_default = /*#__PURE__*/__webpack_require__.n(spectre_overide);
 
 // CONCATENATED MODULE: ./components/flex-container/index.js
 
@@ -1745,7 +1760,10 @@ var form_inputs_Radio = function Radio(_ref) {
    return Object(preact_min["h"])(
       "label",
       { "class": "form-radio" },
-      Object(preact_min["h"])("input", { name: name, type: "radio" }),
+      Object(preact_min["h"])("input", _extends({}, props, {
+         name: name,
+         type: "radio"
+      })),
       form_inputs__ref2,
       label
    );
@@ -1797,9 +1815,28 @@ var form_inputs_TextInput = function TextInput(_ref4) {
    );
 };
 
-var form_inputs_FileInput = function FileInput(_ref5) {
+var form_inputs_DateInput = function DateInput(_ref5) {
    var label = _ref5.label,
        props = _objectWithoutProperties(_ref5, ["label"]);
+
+   return Object(preact_min["h"])(
+      "div",
+      null,
+      Object(preact_min["h"])(
+         "label",
+         { "class": "form-label" },
+         label
+      ),
+      Object(preact_min["h"])("input", _extends({}, props, {
+         type: "date",
+         "class": "form-input"
+      }))
+   );
+};
+
+var form_inputs_FileInput = function FileInput(_ref6) {
+   var label = _ref6.label,
+       props = _objectWithoutProperties(_ref6, ["label"]);
 
    return Object(preact_min["h"])(
       "div",
@@ -1865,7 +1902,7 @@ var form_inputs_PasswordInput = function (_Component) {
    return PasswordInput;
 }(preact_min["Component"]);
 
-var _ref6 = Object(preact_min["h"])("i", { "class": "form-icon" });
+var _ref7 = Object(preact_min["h"])("i", { "class": "form-icon" });
 
 var form_inputs_ShowPasswordSwitch = function ShowPasswordSwitch(props) {
    return Object(preact_min["h"])(
@@ -1876,7 +1913,7 @@ var form_inputs_ShowPasswordSwitch = function ShowPasswordSwitch(props) {
          { "class": "form-switch" },
          Object(preact_min["h"])("input", _extends({ type: "checkbox"
          }, props)),
-         _ref6,
+         _ref7,
          "Show password"
       )
    );
@@ -2566,13 +2603,13 @@ var reset_password_ResetPassword = function (_Component) {
 }(preact_min["Component"]);
 
 /* harmony default export */ var reset_password = (reset_password_ResetPassword);
-// CONCATENATED MODULE: ./routes/create-shrine/components/next-step-button.js
+// CONCATENATED MODULE: ./routes/create-shrine/next-step-button/index.js
 
 var next_step_button_NextStepButton = function NextStepButton(props) {
    return Object(preact_min["h"])(
       "button",
       {
-         "class": "btn btn-primary float-right mt-2",
+         "class": "btn btn-primary float-right",
          onClick: props.onClick
       },
       "Next Step"
@@ -2580,64 +2617,127 @@ var next_step_button_NextStepButton = function NextStepButton(props) {
 };
 
 
-// CONCATENATED MODULE: ./routes/create-shrine/components/create-shrine-form-step1.js
+// CONCATENATED MODULE: ./routes/create-shrine/create-shrine-form-step1/index.js
+
+
+function create_shrine_form_step1__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function create_shrine_form_step1__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function create_shrine_form_step1__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 
 
 
 
 
-var create_shrine_form_step1__ref = Object(preact_min["h"])(
-   'h1',
-   null,
-   'Create a New Shrine'
-);
 
-var create_shrine_form_step1__ref2 = Object(preact_min["h"])(
-   'h4',
-   null,
-   'Step 1'
-);
+var create_shrine_form_step1_CreateShrineFormStep1 = function (_Component) {
+   create_shrine_form_step1__inherits(CreateShrineFormStep1, _Component);
 
-var create_shrine_form_step1__ref3 = Object(preact_min["h"])(form_inputs_TextInput, { label: 'First Name' });
+   function CreateShrineFormStep1() {
+      var _temp, _this, _ret;
 
-var create_shrine_form_step1__ref4 = Object(preact_min["h"])(form_inputs_TextInput, { label: 'Last Name' });
+      create_shrine_form_step1__classCallCheck(this, CreateShrineFormStep1);
 
-var create_shrine_form_step1_CreateShrineFormStep1 = function CreateShrineFormStep1(props) {
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+         args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = create_shrine_form_step1__possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.state = {
+         firstNameError: false,
+         lastNameError: false
+      }, _this._handleNextStep = function () {
+         if (!(_this.props.firstName === '')) {
+            _this.setState({ firstNameError: false });
+         } else {
+            _this.setState({ firstNameError: true });
+         }
+
+         if (!(_this.props.lastName === '')) {
+            _this.setState({ lastNameError: false });
+         } else {
+            _this.setState({ lastNameError: true });
+         }
+
+         if (_this.state.firstNameError || _this.state.lastNameError) {
+            return;
+         }
+
+         _this.props.handleNextStep();
+      }, _temp), create_shrine_form_step1__possibleConstructorReturn(_this, _ret);
+   }
+
+   CreateShrineFormStep1.prototype.render = function render(props, state) {
+
+      var formClasses = classnames_default()('form-group', { 'has-error': this.state.firstNameError || this.state.lastNameError });
+
+      var firstNameHintClasses = classnames_default()('form-input-hint', { 'd-hide': !this.state.firstNameError });
+
+      var lastNameHintClasses = classnames_default()('form-input-hint', { 'd-hide': !this.state.lastNameError });
+
+      return Object(preact_min["h"])(
+         'div',
+         { 'class': formClasses },
+         Object(preact_min["h"])(form_inputs_TextInput, {
+            label: 'First Name',
+            firstName: props.firstName,
+            onChange: props.handleFirstNameChange
+         }),
+         Object(preact_min["h"])(
+            'p',
+            { 'class': firstNameHintClasses },
+            'Please enter a first name'
+         ),
+         Object(preact_min["h"])(form_inputs_TextInput, {
+            label: 'Last Name',
+            lastName: props.lastName,
+            onChange: props.handleLastNameChange
+         }),
+         Object(preact_min["h"])(
+            'p',
+            { 'class': lastNameHintClasses },
+            'Please enter a last name'
+         ),
+         Object(preact_min["h"])(
+            'div',
+            { 'class': 'row my-2' },
+            Object(preact_min["h"])(next_step_button_NextStepButton, {
+               onClick: this._handleNextStep
+            })
+         )
+      );
+   };
+
+   return CreateShrineFormStep1;
+}(preact_min["Component"]);
+
+
+// CONCATENATED MODULE: ./routes/create-shrine/prev-step-button.js
+
+
+
+var prev_step_button_PrevStepButton = function PrevStepButton(props) {
    return Object(preact_min["h"])(
-      'div',
-      null,
-      create_shrine_form_step1__ref,
-      create_shrine_form_step1__ref2,
-      create_shrine_form_step1__ref3,
-      create_shrine_form_step1__ref4,
-      Object(preact_min["h"])(next_step_button_NextStepButton, {
-         onClick: props.handleNextStep
-      })
+      "button",
+      {
+         "class": "btn btn-link",
+         onClick: props.onClick
+      },
+      "prev"
    );
 };
 
 
-// CONCATENATED MODULE: ./routes/create-shrine/components/create-shrine-form-step2.js
+// CONCATENATED MODULE: ./routes/create-shrine/create-shrine-form-step2/index.js
 
 
 
 
 
 
-var create_shrine_form_step2__ref = Object(preact_min["h"])(
-   'h1',
-   null,
-   'Create a New Shrine'
-);
 
-var create_shrine_form_step2__ref2 = Object(preact_min["h"])(
-   'h4',
-   null,
-   'Step 2'
-);
-
-var create_shrine_form_step2__ref3 = Object(preact_min["h"])(form_inputs_FileInput, {
+var create_shrine_form_step2__ref = Object(preact_min["h"])(form_inputs_FileInput, {
    'class': 'text-ellipsis',
    label: 'Upload a Photo'
 });
@@ -2647,145 +2747,399 @@ var create_shrine_form_step2_CreateShrineFormStep2 = function CreateShrineFormSt
       'div',
       null,
       create_shrine_form_step2__ref,
-      create_shrine_form_step2__ref2,
-      create_shrine_form_step2__ref3,
-      Object(preact_min["h"])(next_step_button_NextStepButton, {
-         onClick: props.handleNextStep
-      })
+      Object(preact_min["h"])(
+         'div',
+         { 'class': 'row my-2' },
+         Object(preact_min["h"])(prev_step_button_PrevStepButton, {
+            onClick: props.handlePrevStep
+         }),
+         Object(preact_min["h"])(next_step_button_NextStepButton, {
+            onClick: props.handleNextStep
+         })
+      )
    );
 };
 
 
-// CONCATENATED MODULE: ./routes/create-shrine/components/create-shrine-form-step3.js
+// CONCATENATED MODULE: ./routes/create-shrine/create-shrine-form-step3/choose-gender.js
 
 
 
 
 
 
-var create_shrine_form_step3__ref = Object(preact_min["h"])(
-   'h1',
+var choose_gender__ref = Object(preact_min["h"])(
+   'strong',
    null,
-   'Create a New Shrine'
+   'We\'ll use this answer to phrase our questions:'
 );
 
-var create_shrine_form_step3__ref2 = Object(preact_min["h"])(
-   'div',
+var choose_gender__ref2 = Object(preact_min["h"])(
+   'p',
    null,
+   'How did... '
+);
+
+var choose_gender__ref3 = Object(preact_min["h"])(
+   form_inputs_Label,
+   null,
+   'Gender & Pronoun'
+);
+
+var choose_gender__ref4 = Object(preact_min["h"])(
+   'div',
+   { 'class': 'row' },
+   Object(preact_min["h"])(form_inputs_Radio, {
+      label: 'Female',
+      value: 'Female',
+      name: 'gender'
+   }),
    Object(preact_min["h"])(
-      form_inputs_Label,
-      null,
-      'Gender'
-   ),
-   Object(preact_min["h"])(
-      'div',
-      { 'class': 'col mx-2' },
-      Object(preact_min["h"])(
-         'div',
-         { 'class': 'row' },
-         Object(preact_min["h"])(form_inputs_Radio, { label: 'Female', name: 'gender' }),
-         Object(preact_min["h"])(
-            'span',
-            { 'class': 'text-gray' },
-            '- She/Her'
-         )
-      ),
-      Object(preact_min["h"])(
-         'div',
-         { 'class': 'row' },
-         Object(preact_min["h"])(form_inputs_Radio, { label: 'Male', name: 'gender' }),
-         Object(preact_min["h"])(
-            'span',
-            { 'class': 'text-gray' },
-            '- He/Him'
-         )
-      ),
-      Object(preact_min["h"])(
-         'div',
-         { 'class': 'row' },
-         Object(preact_min["h"])(form_inputs_Radio, { label: 'Other', name: 'gender' })
-      )
+      'span',
+      { 'class': 'text-gray' },
+      '- She/Her'
    )
 );
+
+var choose_gender__ref5 = Object(preact_min["h"])(
+   'div',
+   { 'class': 'row' },
+   Object(preact_min["h"])(form_inputs_Radio, {
+      label: 'Male',
+      value: 'Male',
+      name: 'gender'
+   }),
+   Object(preact_min["h"])(
+      'span',
+      { 'class': 'text-gray' },
+      '- He/Him'
+   )
+);
+
+var choose_gender__ref6 = Object(preact_min["h"])(
+   'div',
+   { 'class': 'row' },
+   Object(preact_min["h"])(form_inputs_Radio, { label: 'Other', name: 'gender' })
+);
+
+var choose_gender_ChooseGender = function ChooseGender(props) {
+   return Object(preact_min["h"])(
+      'div',
+      null,
+      Object(preact_min["h"])(
+         dialog_Dialog,
+         { active: 'true' },
+         Object(preact_min["h"])(
+            'div',
+            { 'class': 'card' },
+            Object(preact_min["h"])(
+               'div',
+               { 'class': 'card-body' },
+               choose_gender__ref,
+               Object(preact_min["h"])(
+                  'div',
+                  null,
+                  Object(preact_min["h"])(
+                     'p',
+                     null,
+                     'Think about ',
+                     props.firstName,
+                     '.'
+                  ),
+                  props.subjPronoun ? Object(preact_min["h"])(
+                     'p',
+                     null,
+                     'How did ',
+                     props.subjPronoun,
+                     '... What was ',
+                     props.posPronoun,
+                     ' favorite...'
+                  ) : choose_gender__ref2
+               )
+            )
+         )
+      ),
+      choose_gender__ref3,
+      Object(preact_min["h"])(
+         'div',
+         { onChange: props.handleGenderChange, 'class': 'col mx-2' },
+         choose_gender__ref4,
+         choose_gender__ref5,
+         choose_gender__ref6
+      )
+   );
+};
+
+
+// CONCATENATED MODULE: ./routes/create-shrine/create-shrine-form-step3/date-of-birth.js
+
+
+
+
+
+var date_of_birth__ref = Object(preact_min["h"])(form_inputs_DateInput, {
+   label: 'Date of Birth'
+});
+
+var date_of_birth_DateOfBirth = function DateOfBirth(props) {
+   return Object(preact_min["h"])(
+      'div',
+      null,
+      Object(preact_min["h"])(
+         dialog_Dialog,
+         { active: 'true' },
+         Object(preact_min["h"])(
+            'div',
+            { 'class': 'card' },
+            Object(preact_min["h"])(
+               'div',
+               { 'class': 'card-body' },
+               'When was ',
+               props.firstName,
+               ' born?'
+            )
+         )
+      ),
+      date_of_birth__ref
+   );
+};
+
+
+// CONCATENATED MODULE: ./routes/create-shrine/create-shrine-form-step3/still-with-us.js
+
+
+
+
+
+
+var still_with_us__ref = Object(preact_min["h"])(dialog_Dialog, { active: 'false' });
+
+var still_with_us__ref2 = Object(preact_min["h"])(
+   'div',
+   { 'class': 'row' },
+   Object(preact_min["h"])(form_inputs_Radio, {
+      label: 'Still alive and well',
+      name: 'deceased',
+      value: 'false'
+   })
+);
+
+var still_with_us__ref3 = Object(preact_min["h"])(
+   'div',
+   { 'class': 'row' },
+   Object(preact_min["h"])(form_inputs_Radio, {
+      label: 'Will pass soon',
+      name: 'deceased',
+      value: 'false'
+   })
+);
+
+var still_with_us__ref4 = Object(preact_min["h"])(
+   'div',
+   { 'class': 'row' },
+   Object(preact_min["h"])(form_inputs_Radio, {
+      label: 'Passed away',
+      name: 'deceased',
+      value: 'true'
+   })
+);
+
+var still_with_us_StillWithUs = function StillWithUs(props) {
+   return Object(preact_min["h"])(
+      'div',
+      null,
+      still_with_us__ref,
+      Object(preact_min["h"])(
+         form_inputs_Label,
+         null,
+         'Is ',
+         props.firstName,
+         ' still with us?'
+      ),
+      Object(preact_min["h"])(
+         'div',
+         { onChange: props.handleDeath, 'class': 'col mx-2' },
+         still_with_us__ref2,
+         still_with_us__ref3,
+         still_with_us__ref4
+      )
+   );
+};
+
+
+// CONCATENATED MODULE: ./routes/create-shrine/create-shrine-form-step3/date-of-death.js
+
+
+
+
+
+
+var date_of_death__ref = Object(preact_min["h"])(form_inputs_DateInput, {
+   label: 'Date of Death'
+});
+
+var date_of_death_DateOfDeath = function DateOfDeath(props) {
+
+   var classes = classnames_default()({ 'd-none': !props.deceased });
+
+   return Object(preact_min["h"])(
+      'div',
+      { 'class': classes },
+      Object(preact_min["h"])(
+         dialog_Dialog,
+         { active: 'true' },
+         Object(preact_min["h"])(
+            'div',
+            { 'class': 'card' },
+            Object(preact_min["h"])(
+               'div',
+               { 'class': 'card-body' },
+               'We\'re sorry for your loss.  When did ',
+               props.firstName,
+               ' pass?'
+            )
+         )
+      ),
+      date_of_death__ref
+   );
+};
+
+
+// CONCATENATED MODULE: ./routes/create-shrine/create-shrine-form-step3/index.js
+
+
+
+
+
+
+
+
+
+
+
 
 var create_shrine_form_step3_CreateShrineFormStep3 = function CreateShrineFormStep3(props) {
    return Object(preact_min["h"])(
       'div',
       null,
-      create_shrine_form_step3__ref,
-      create_shrine_form_step3__ref2,
-      Object(preact_min["h"])(next_step_button_NextStepButton, {
-         onClick: props.handleNextStep
-      })
+      Object(preact_min["h"])(choose_gender_ChooseGender, {
+         firstName: props.firstName,
+         subjPronoun: props.subjPronoun,
+         objPronoun: props.objPronoun,
+         posPronoun: props.posPronoun,
+         handleGenderChange: props.handleGenderChange
+      }),
+      Object(preact_min["h"])(date_of_birth_DateOfBirth, {
+         firstName: props.firstName
+      }),
+      Object(preact_min["h"])(still_with_us_StillWithUs, {
+         firstName: props.firstName,
+         handleDeath: props.handleDeath
+      }),
+      Object(preact_min["h"])(date_of_death_DateOfDeath, {
+         deceased: props.deceased,
+         firstName: props.firstName
+      }),
+      Object(preact_min["h"])(
+         'div',
+         { 'class': 'row my-2' },
+         Object(preact_min["h"])(prev_step_button_PrevStepButton, {
+            onClick: props.handlePrevStep
+         }),
+         Object(preact_min["h"])(next_step_button_NextStepButton, {
+            onClick: props.handleNextStep
+         })
+      )
    );
 };
 
 
-// CONCATENATED MODULE: ./routes/create-shrine/components/create-shrine-form-step4.js
+// CONCATENATED MODULE: ./routes/create-shrine/create-shrine-form-step4/index.js
 
 
 
 
 
 
-var create_shrine_form_step4__ref = Object(preact_min["h"])(
-   'h1',
-   null,
-   'Create a New Shrine'
-);
-
-var create_shrine_form_step4__ref2 = Object(preact_min["h"])(
-   'h4',
-   null,
-   'Step 4'
-);
 
 var create_shrine_form_step4_CreateShrineFormStep4 = function CreateShrineFormStep4(props) {
    return Object(preact_min["h"])(
       'div',
       null,
-      create_shrine_form_step4__ref,
-      create_shrine_form_step4__ref2,
-      Object(preact_min["h"])(next_step_button_NextStepButton, {
-         onClick: props.handleNextStep
-      })
+      Object(preact_min["h"])(
+         'div',
+         { 'class': 'row my-2' },
+         Object(preact_min["h"])(prev_step_button_PrevStepButton, {
+            onClick: props.handlePrevStep
+         }),
+         Object(preact_min["h"])(next_step_button_NextStepButton, {
+            onClick: props.handleNextStep
+         })
+      )
    );
 };
 
 
-// CONCATENATED MODULE: ./routes/create-shrine/components/create-shrine-form-step5.js
+// CONCATENATED MODULE: ./routes/create-shrine/create-shrine-form-step5/index.js
 
 
 
 
 
 
-var create_shrine_form_step5__ref = Object(preact_min["h"])(
-   'h1',
-   null,
-   'Create a New Shrine'
-);
-
-var create_shrine_form_step5__ref2 = Object(preact_min["h"])(
-   'h4',
-   null,
-   'Step 5'
-);
 
 var create_shrine_form_step5_CreateShrineFormStep5 = function CreateShrineFormStep5(props) {
    return Object(preact_min["h"])(
       'div',
       null,
-      create_shrine_form_step5__ref,
-      create_shrine_form_step5__ref2,
-      Object(preact_min["h"])(next_step_button_NextStepButton, {
-         onClick: props.handleNextStep
-      })
+      Object(preact_min["h"])(
+         'div',
+         { 'class': 'row my-2' },
+         Object(preact_min["h"])(prev_step_button_PrevStepButton, {
+            onClick: props.handlePrevStep
+         }),
+         Object(preact_min["h"])(next_step_button_NextStepButton, {
+            onClick: props.handleNextStep
+         })
+      )
    );
 };
 
 
-// CONCATENATED MODULE: ./routes/create-shrine/components/create-shrine-form-step6.js
+// CONCATENATED MODULE: ./components/chips.js
+
+
+var chips__ref = Object(preact_min["h"])("a", {
+   "class": "btn btn-clear",
+   "aria-label": "Close",
+   role: "button"
+});
+
+var chips_EmailChip = function EmailChip(props) {
+   return Object(preact_min["h"])(
+      "span",
+      {
+         "class": props.class ? "chip " + props.class : "chip",
+         value: props.value,
+         onClick: props.onClick
+      },
+      props.children,
+      chips__ref
+   );
+};
+
+
+// CONCATENATED MODULE: ./routes/create-shrine/create-shrine-form-step6/index.js
+
+
+function create_shrine_form_step6__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function create_shrine_form_step6__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function create_shrine_form_step6__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
 
 
 
@@ -2793,31 +3147,130 @@ var create_shrine_form_step5_CreateShrineFormStep5 = function CreateShrineFormSt
 
 
 var create_shrine_form_step6__ref = Object(preact_min["h"])(
-   'h1',
-   null,
-   'Create a New Shrine'
+   'label',
+   { 'class': 'form-label' },
+   'Enter email addresses'
 );
 
-var create_shrine_form_step6__ref2 = Object(preact_min["h"])(
-   'h4',
-   null,
-   'Step 6'
-);
+var create_shrine_form_step6_CreateShrineFormStep6 = function (_Component) {
+   create_shrine_form_step6__inherits(CreateShrineFormStep6, _Component);
 
-var create_shrine_form_step6_CreateShrineFormStep6 = function CreateShrineFormStep6(props) {
-   return Object(preact_min["h"])(
-      'div',
-      null,
-      create_shrine_form_step6__ref,
-      create_shrine_form_step6__ref2,
-      Object(preact_min["h"])(next_step_button_NextStepButton, {
-         onClick: props.handleNextStep
-      })
-   );
-};
+   function CreateShrineFormStep6() {
+      var _temp, _this, _ret;
+
+      create_shrine_form_step6__classCallCheck(this, CreateShrineFormStep6);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+         args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = create_shrine_form_step6__possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.state = {
+         email: '',
+         emails: [],
+         emailError: false
+      }, _this._handleEmailChange = function (e) {
+         _this.setState({ email: e.target.value });
+      }, _this._addEmail = function () {
+         // if not valid email address
+         if (!isEmail_default()(_this.state.email)) {
+            // throw email error, don't submit
+            _this.setState({ emailError: true });
+            return;
+         } else {
+            _this.setState({ emailError: false });
+         }
+
+         _this.setState({
+            emails: [].concat(_this.state.emails, [_this.state.email]),
+            email: ''
+         });
+      }, _this._removeEmail = function (e) {
+         // save all emails except the one we want to get rid of...
+         // NOTE - originally intended to use e.target.value, but that isn't
+         // a thing when clicking on <a> tags. went with e.target.name as
+         // that was something I could set when the element is created.
+         // see line 67 below.
+         var emails = _this.state.emails.filter(function (email) {
+            return email !== e.target.name;
+         });
+         // and set the state to that.
+         _this.setState({ emails: emails });
+      }, _temp), create_shrine_form_step6__possibleConstructorReturn(_this, _ret);
+   }
+
+   CreateShrineFormStep6.prototype.render = function render(props, state) {
+      var _this2 = this;
+
+      var formClasses = classnames_default()('form-group', { 'has-error': this.state.emailError });
+
+      var emailHintClasses = classnames_default()('form-input-hint', { 'd-hide': !this.state.emailError });
+
+      return Object(preact_min["h"])(
+         'div',
+         null,
+         Object(preact_min["h"])(
+            'div',
+            { 'class': formClasses },
+            create_shrine_form_step6__ref,
+            Object(preact_min["h"])(
+               'div',
+               { 'class': 'input-group' },
+               Object(preact_min["h"])('input', {
+                  type: 'email',
+                  'class': 'form-input',
+                  value: this.state.email,
+                  onChange: this._handleEmailChange
+               }),
+               Object(preact_min["h"])(
+                  'button',
+                  {
+                     'class': 'btn btn-primary input-group-btn',
+                     onClick: this._addEmail
+                  },
+                  'Add'
+               )
+            ),
+            Object(preact_min["h"])(
+               'p',
+               { 'class': emailHintClasses },
+               'Please enter a valid email address'
+            )
+         ),
+         Object(preact_min["h"])(
+            'div',
+            { 'class': 'mt-2' },
+            this.state.emails.map(function (email) {
+               return Object(preact_min["h"])(
+                  'span',
+                  {
+                     'class': 'chip'
+                  },
+                  email,
+                  Object(preact_min["h"])('a', {
+                     'class': 'btn btn-clear',
+                     'aria-label': 'Close',
+                     role: 'button',
+                     onClick: _this2._removeEmail,
+                     name: email
+                  })
+               );
+            })
+         ),
+         Object(preact_min["h"])(
+            'div',
+            { 'class': 'row my-2' },
+            Object(preact_min["h"])(prev_step_button_PrevStepButton, {
+               onClick: props.handlePrevStep
+            })
+         )
+      );
+   };
+
+   return CreateShrineFormStep6;
+}(preact_min["Component"]);
 
 
-// CONCATENATED MODULE: ./routes/create-shrine/components/create-shrine-form-container.js
+// CONCATENATED MODULE: ./routes/create-shrine/create-shrine-form-container/index.js
 
 
 function create_shrine_form_container__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2840,57 +3293,68 @@ var create_shrine_form_container_CreateShrineFormContainer = function (_Componen
    create_shrine_form_container__inherits(CreateShrineFormContainer, _Component);
 
    function CreateShrineFormContainer() {
-      var _temp, _this, _ret;
-
       create_shrine_form_container__classCallCheck(this, CreateShrineFormContainer);
 
-      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-         args[_key] = arguments[_key];
-      }
-
-      return _ret = (_temp = (_this = create_shrine_form_container__possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.state = {
-         step: 1
-      }, _this._handleNextStep = function () {
-         var next = _this.state.step + 1;
-         _this.setState({ step: next });
-      }, _temp), create_shrine_form_container__possibleConstructorReturn(_this, _ret);
+      return create_shrine_form_container__possibleConstructorReturn(this, _Component.apply(this, arguments));
    }
 
    CreateShrineFormContainer.prototype.render = function render(props) {
-      switch (this.state.step) {
+      switch (props.step) {
          case 1:
             return Object(preact_min["h"])(create_shrine_form_step1_CreateShrineFormStep1, {
-               handleNextStep: this._handleNextStep
+
+               firstName: props.firstName,
+               handleFirstNameChange: props.handleFirstNameChange,
+
+               lastName: props.lastName,
+               handleLastNameChange: props.handleLastNameChange,
+
+               handleNextStep: props.handleNextStep
             });
             break;
 
          case 2:
             return Object(preact_min["h"])(create_shrine_form_step2_CreateShrineFormStep2, {
-               handleNextStep: this._handleNextStep
+               handleNextStep: props.handleNextStep,
+               handlePrevStep: props.handlePrevStep
             });
             break;
 
          case 3:
             return Object(preact_min["h"])(create_shrine_form_step3_CreateShrineFormStep3, {
-               handleNextStep: this._handleNextStep
+               firstName: props.firstName,
+
+               subjPronoun: props.subjPronoun,
+               objPronoun: props.objPronoun,
+               posPronoun: props.posPronoun,
+               handleGenderChange: props.handleGenderChange,
+
+               deceased: props.deceased,
+               handleDeath: props.handleDeath,
+
+               handleNextStep: props.handleNextStep,
+               handlePrevStep: props.handlePrevStep
             });
             break;
 
          case 4:
             return Object(preact_min["h"])(create_shrine_form_step4_CreateShrineFormStep4, {
-               handleNextStep: this._handleNextStep
+               handleNextStep: props.handleNextStep,
+               handlePrevStep: props.handlePrevStep
             });
             break;
 
          case 5:
             return Object(preact_min["h"])(create_shrine_form_step5_CreateShrineFormStep5, {
-               handleNextStep: this._handleNextStep
+               handleNextStep: props.handleNextStep,
+               handlePrevStep: props.handlePrevStep
             });
             break;
 
          case 6:
             return Object(preact_min["h"])(create_shrine_form_step6_CreateShrineFormStep6, {
-               handleNextStep: this._handleNextStep
+               handleNextStep: props.handleNextStep,
+               handlePrevStep: props.handlePrevStep
             });
             break;
       }
@@ -2906,7 +3370,7 @@ var create_shrine_form_container_CreateShrineFormContainer = function (_Componen
 var menu_Menu = function Menu(props) {
    return Object(preact_min["h"])(
       "ul",
-      { "class": "menu" },
+      { "class": "menu " + props.class },
       props.children
    );
 };
@@ -2914,7 +3378,7 @@ var menu_Menu = function Menu(props) {
 var menu_MenuItem = function MenuItem(props) {
    return Object(preact_min["h"])(
       "li",
-      { "class": "menu-item" },
+      { "class": "menu-item " + props.class },
       props.children
    );
 };
@@ -2928,59 +3392,84 @@ var menu_MenuDivider = function MenuDivider(props) {
 };
 
 
-// CONCATENATED MODULE: ./routes/create-shrine/components/avatar-rail.js
+// CONCATENATED MODULE: ./components/avatar.js
+
+// import classNames from 'classnames';
+
+var avatar_Avatar = function Avatar(props) {
+   return Object(preact_min["h"])("figure", {
+      "class": props.class ? "avatar " + props.class : "avatar",
+      "data-initial": props.data });
+};
+
+
+// CONCATENATED MODULE: ./routes/create-shrine/avatar-rail/index.js
+
 
 
 
 
 
 var avatar_rail__ref = Object(preact_min["h"])(
-   menu_Menu,
+   menu_MenuDivider,
    null,
-   Object(preact_min["h"])(
-      menu_MenuDivider,
-      null,
-      'Shrine Basics'
-   ),
-   Object(preact_min["h"])(
-      menu_MenuItem,
-      null,
-      '1. Name'
-   ),
-   Object(preact_min["h"])(
-      menu_MenuItem,
-      null,
-      '2. Photo'
-   ),
-   Object(preact_min["h"])(
-      menu_MenuItem,
-      null,
-      '3. Information'
-   ),
-   Object(preact_min["h"])(
-      menu_MenuDivider,
-      null,
-      'Invite Others'
-   ),
-   Object(preact_min["h"])(
-      menu_MenuItem,
-      null,
-      '4. Invitation Template'
-   ),
-   Object(preact_min["h"])(
-      menu_MenuItem,
-      null,
-      '5. Customize Invitation'
-   ),
-   Object(preact_min["h"])(
-      menu_MenuItem,
-      null,
-      '6. Invite Collaborators'
-   )
+   'Shrine Basics'
 );
 
-var AvatarRail = function AvatarRail(props) {
-   return avatar_rail__ref;
+var avatar_rail__ref2 = Object(preact_min["h"])(
+   menu_MenuDivider,
+   null,
+   'Invite Others'
+);
+
+var avatar_rail_AvatarRail = function AvatarRail(props) {
+   var initials = props.firstName.charAt(0) + props.lastName.charAt(0);
+   return Object(preact_min["h"])(
+      menu_Menu,
+      { 'class': 'avatar-rail-menu' },
+      props.step > 1 && Object(preact_min["h"])(avatar_Avatar, { 'class': 'avatar-xxl centered', data: initials }),
+      props.step > 1 && Object(preact_min["h"])(
+         menu_MenuItem,
+         null,
+         Object(preact_min["h"])(
+            'h4',
+            { 'class': 'text-center m-2' },
+            props.firstName
+         )
+      ),
+      avatar_rail__ref,
+      Object(preact_min["h"])(
+         menu_MenuItem,
+         { 'class': props.step === 1 && "arrow-box" },
+         'Name'
+      ),
+      Object(preact_min["h"])(
+         menu_MenuItem,
+         { 'class': props.step === 2 && "arrow-box" },
+         'Photo'
+      ),
+      Object(preact_min["h"])(
+         menu_MenuItem,
+         { 'class': props.step === 3 && "arrow-box" },
+         'Information'
+      ),
+      avatar_rail__ref2,
+      Object(preact_min["h"])(
+         menu_MenuItem,
+         { 'class': props.step === 4 && "arrow-box" },
+         'Invitation Template'
+      ),
+      Object(preact_min["h"])(
+         menu_MenuItem,
+         { 'class': props.step === 5 && "arrow-box" },
+         'Customize Invitation'
+      ),
+      Object(preact_min["h"])(
+         menu_MenuItem,
+         { 'class': props.step === 6 && "arrow-box" },
+         'Invite Collaborators'
+      )
+   );
 };
 
 
@@ -2999,36 +3488,131 @@ function create_shrine__inherits(subClass, superClass) { if (typeof superClass !
 
 
 
-var create_shrine__ref = Object(preact_min["h"])(flex_container_FlexContainer, {
-   avatarRail: Object(preact_min["h"])(
-      'div',
-      { 'class': 'm-2' },
-      Object(preact_min["h"])(AvatarRail, null)
-   ),
-   formRail: Object(preact_min["h"])(
-      'div',
-      { 'class': 'm-2' },
-      Object(preact_min["h"])(create_shrine_form_container_CreateShrineFormContainer, null)
-   )
-});
+var create_shrine__ref = Object(preact_min["h"])(
+   'h2',
+   { 'class': 'text-center' },
+   ' Create a New Shrine'
+);
 
-var CreateShrine = function (_Component) {
+var create_shrine_CreateShrine = function (_Component) {
    create_shrine__inherits(CreateShrine, _Component);
 
    function CreateShrine() {
+      var _temp, _this, _ret;
+
       create_shrine__classCallCheck(this, CreateShrine);
 
-      return create_shrine__possibleConstructorReturn(this, _Component.apply(this, arguments));
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+         args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = create_shrine__possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.state = {
+         step: 1,
+
+         firstName: '',
+         lastName: '',
+         subjPronoun: '',
+         objPronoun: '',
+         posPronoun: '',
+         deceased: false
+      }, _this._handleNextStep = function () {
+         var step = _this.state.step + 1;
+         _this.setState({ step: step });
+      }, _this._handlePrevStep = function () {
+         var step = _this.state.step - 1;
+         _this.setState({ step: step });
+      }, _this._handleFirstNameChange = function (e) {
+         _this.setState({ firstName: e.target.value });
+      }, _this._handleLastNameChange = function (e) {
+         _this.setState({ lastName: e.target.value });
+      }, _this._handleGenderChange = function (e) {
+         if (e.target.value === 'Male') {
+            _this.setState({
+               subjPronoun: 'he',
+               objPronoun: 'him',
+               posPronoun: 'his'
+            });
+         } else if (e.target.value === 'Female') {
+            _this.setState({
+               subjPronoun: 'she',
+               objPronoun: 'her',
+               posPronoun: 'her'
+            });
+         }
+      }, _this._handleDeath = function (e) {
+         if (e.target.value === "true") {
+            _this.setState({ deceased: true });
+         } else if (e.target.value === "false") {
+            _this.setState({ deceased: false });
+         }
+      }, _temp), create_shrine__possibleConstructorReturn(_this, _ret);
    }
 
+   // this is a terrible function name...
+   // as if death could be handled with with 3 lines of code.
+
+
    CreateShrine.prototype.render = function render(props) {
-      return create_shrine__ref;
+
+      var step = this.state.step;
+      var firstName = this.state.firstName;
+      var lastName = this.state.lastName;
+
+      return Object(preact_min["h"])(flex_container_FlexContainer, {
+
+         avatarRail: Object(preact_min["h"])(
+            'div',
+            { 'class': 'm-2' },
+            Object(preact_min["h"])(avatar_rail_AvatarRail, {
+               step: step,
+               firstName: firstName,
+               lastName: lastName
+            })
+         ),
+
+         formRail: Object(preact_min["h"])(
+            'div',
+            { 'class': 'm-2' },
+            step > 1 && firstName ? Object(preact_min["h"])(
+               'h2',
+               { 'class': 'text-center' },
+               firstName,
+               '\'s Shrine'
+            ) : create_shrine__ref,
+            Object(preact_min["h"])(
+               'p',
+               { 'class': 'text-center text-gray' },
+               'Step ',
+               step,
+               ' of 6'
+            ),
+            Object(preact_min["h"])(create_shrine_form_container_CreateShrineFormContainer, {
+               step: step,
+               handleNextStep: this._handleNextStep,
+               handlePrevStep: this._handlePrevStep,
+
+               firstName: firstName,
+               lastName: lastName,
+               handleFirstNameChange: this._handleFirstNameChange,
+               handleLastNameChange: this._handleLastNameChange,
+
+               subjPronoun: this.state.subjPronoun,
+               objPronoun: this.state.objPronoun,
+               posPronoun: this.state.posPronoun,
+               handleGenderChange: this._handleGenderChange,
+
+               deceased: this.state.deceased,
+               handleDeath: this._handleDeath
+            })
+         )
+
+      });
    };
 
    return CreateShrine;
 }(preact_min["Component"]);
 
-/* harmony default export */ var create_shrine = (CreateShrine);
+/* harmony default export */ var create_shrine = (create_shrine_CreateShrine);
 // CONCATENATED MODULE: ./components/navbar.js
 
 
@@ -3090,6 +3674,8 @@ function index__inherits(subClass, superClass) { if (typeof superClass !== "func
 
 
 // css
+
+
 
 
 
@@ -3232,6 +3818,13 @@ function merge() {
   return obj;
 }
 module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "WWj2":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 
