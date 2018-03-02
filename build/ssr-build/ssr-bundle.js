@@ -944,7 +944,7 @@ var dialog_Dialog = function Dialog(props) {
 
    var diaClasses = classnames_default()('dialog', { 'd-none': !props.active });
 
-   var iconClasses = classnames_default()('dialog-icon', 'circle', 'text-bold', 'float-right', 'm-1');
+   var iconClasses = classnames_default()('dialog-icon', 'circle', 'text-bold', 'float-right', 'mt-2');
 
    return Object(preact_min["h"])(
       'div',
@@ -1424,7 +1424,7 @@ var signup_form_inputs__ref2 = Object(preact_min["h"])(
    Object(preact_min["h"])(
       'div',
       { 'class': 'card-body' },
-      'Make sure you have a really secure password or else your account could get all fucked up by hackers.'
+      'Make sure to use a strong password or phrase (i.e. more than 8 characters). You know the drill.'
    )
 );
 
@@ -1445,6 +1445,8 @@ var signup_form_inputs_PasswordInput = function (_Component) {
       var _this = signup_form_inputs__possibleConstructorReturn(this, _Component.call(this, props));
 
       _this._toggleDialog = _this._toggleDialog.bind(_this);
+      _this._showDialog = _this._showDialog.bind(_this);
+      _this._hideDialog = _this._hideDialog.bind(_this);
       _this.state = {
          showDialog: false
       };
@@ -1453,6 +1455,14 @@ var signup_form_inputs_PasswordInput = function (_Component) {
 
    PasswordInput.prototype._toggleDialog = function _toggleDialog() {
       var showDialog = !this.state.showDialog;
+      this.setState({ showDialog: showDialog });
+   };
+
+   PasswordInput.prototype._showDialog = function _showDialog() {
+      this.setState({ showDialog: true });
+   };
+
+   PasswordInput.prototype._hideDialog = function _hideDialog() {
       this.setState({ showDialog: showDialog });
    };
 
@@ -1469,8 +1479,7 @@ var signup_form_inputs_PasswordInput = function (_Component) {
          Object(preact_min["h"])('input', {
             value: props.password,
             onChange: props.handlePasswordChange,
-            onFocusIn: this._toggleDialog,
-            onFocusOut: this._toggleDialog,
+            onFocus: this._showDialog,
             'class': 'form-input',
             type: props.showPassword ? "text" : "password",
             placeholder: 'Your password'
@@ -2303,7 +2312,7 @@ var recover_account_form_container_RecoverAccountFormContainer = function (_Comp
             } else if (json.canResetPassword) {
                // remove loading spinner
                // set recoverAccountSuccess flag to true to trigger route change to 'ResetPassword'
-               // FIXME - the above feels like a hack. 
+               // FIXME - the above feels like a hack.
                // might be time to add a redux-style store?
                _this.setState({ loading: false, canResetPassword: json.canResetPassword });
                // send event up to set global app state with logged in user
@@ -2328,7 +2337,7 @@ var recover_account_form_container_RecoverAccountFormContainer = function (_Comp
    // TODO - hasError below should be a method called as...
    //
    // hasError={ this._hasError(this.state.recoverAccountNumber) }
-   // 
+   //
    // ...or something like that.
 
    RecoverAccountFormContainer.prototype.render = function render(props) {
@@ -3555,7 +3564,7 @@ var create_shrine_CreateShrine = function (_Component) {
    }
 
    // this is a terrible function name...
-   // as if death could be handled with with 3 lines of code.
+   // as if death could be handled with 3 lines of code.
 
 
    CreateShrine.prototype.render = function render(props) {
