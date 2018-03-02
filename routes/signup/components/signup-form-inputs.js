@@ -20,6 +20,8 @@ class PasswordInput extends Component {
    constructor (props) {
       super(props);
       this._toggleDialog = this._toggleDialog.bind(this);
+      this._showDialog = this._showDialog.bind(this);
+      this._hideDialog = this._hideDialog.bind(this);
       this.state = {
          showDialog: false
       };
@@ -30,6 +32,14 @@ class PasswordInput extends Component {
       this.setState({ showDialog });
    }
 
+   _showDialog () {
+      this.setState({ showDialog: true });
+   }
+
+   _hideDialog () {
+      this.setState({ showDialog });
+   }
+
    render (props) {
       return (
          <div>
@@ -37,8 +47,8 @@ class PasswordInput extends Component {
             <Dialog active={ this.state.showDialog }>
                <div class="card">
                   <div class="card-body">
-                     Make sure you have a really secure password 
-                     or else your account could get all fucked up by hackers.
+                     Make sure to use a strong password or phrase (i.e. more
+                     than 8 characters). You know the drill.
                   </div>
                </div>
             </Dialog>
@@ -49,8 +59,7 @@ class PasswordInput extends Component {
             <input 
                value={ props.password }
                onChange={ props.handlePasswordChange }
-               onFocusIn={ this._toggleDialog }
-               onFocusOut={ this._toggleDialog }
+               onFocus={ this._showDialog }
                class="form-input" 
                type={ props.showPassword ? "text" : "password" }
                placeholder="Your password"
