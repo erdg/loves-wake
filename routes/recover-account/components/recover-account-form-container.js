@@ -3,7 +3,7 @@ import { route } from 'preact-router';
 
 import { RecoverAccountForm } from './recover-account-form';
 
-class RecoverAccountFormContainer extends Component { 
+class RecoverAccountFormContainer extends Component {
    constructor (props) {
       super(props);
 
@@ -34,9 +34,9 @@ class RecoverAccountFormContainer extends Component {
       })
       .then( (json) => {
          if (json.error) {
-            this.setState({ 
+            this.setState({
                // display errors and remove loading spinner
-               serverError: json.error, 
+               serverError: json.error,
                showServerError: true,
                loading: false
             });
@@ -44,7 +44,7 @@ class RecoverAccountFormContainer extends Component {
          } else if (json.canResetPassword) {
             // remove loading spinner
             // set recoverAccountSuccess flag to true to trigger route change to 'ResetPassword'
-            // FIXME - the above feels like a hack. 
+            // FIXME - the above feels like a hack.
             // might be time to add a redux-style store?
             this.setState({ loading: false, canResetPassword: json.canResetPassword});
             // send event up to set global app state with logged in user
@@ -61,7 +61,7 @@ class RecoverAccountFormContainer extends Component {
    // TODO - hasError below should be a method called as...
    //
    // hasError={ this._hasError(this.state.recoverAccountNumber) }
-   // 
+   //
    // ...or something like that.
 
    render (props) {
@@ -71,12 +71,12 @@ class RecoverAccountFormContainer extends Component {
             recoverAccountNumber={ this.state.recoverAccountNumber }
             handleRecoverAccountNumberChange={ this._handleRecoverAccountNumberChange }
 
-            hasError={ 
-               this.state.recoverAccountNumber 
-                  && 
-               (isNaN(this.state.recoverAccountNumber) 
-                  || 
-               !(this.state.recoverAccountNumber.length === 6)) 
+            hasError={
+               this.state.recoverAccountNumber
+                  &&
+               (isNaN(this.state.recoverAccountNumber)
+                  ||
+               !(this.state.recoverAccountNumber.length === 6))
                   ? true : false
             }
 
