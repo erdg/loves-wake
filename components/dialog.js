@@ -7,7 +7,7 @@ const Dialog = (props) => {
    );
 
    let iconClasses = classNames(
-      'dialog-icon', 'circle', 'text-bold', 'float-right', 'm-1'
+      'dialog-icon', 'circle', 'text-bold', 'float-right', 'mt-2'
    );
 
    return (
