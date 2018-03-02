@@ -51,7 +51,7 @@ class CreateShrine extends Component {
    }
 
    // this is a terrible function name...
-   // as if death could be handled with with 3 lines of code.
+   // as if death could be handled with 3 lines of code.
    _handleDeath = (e) => {
       if ( e.target.value === "true" ) {
          this.setState({ deceased: true });
