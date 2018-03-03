@@ -3,6 +3,18 @@
    flex-direction: row;
 }
 
+/* hovers above avatar/form rails */
+.flex-container-heading {
+   margin-left: 16vw;
+}
+
+@media (max-width: 600px) {
+   .flex-container-heading {
+      text-align: center;
+      margin: auto;
+   }
+}
+
 .left-rail {
    background-color: lightgray;
    flex: 0 0 59px;

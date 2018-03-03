@@ -68,32 +68,35 @@ class CreateShrine extends Component {
 
       return (
 
-         <FlexContainer 
+         <div>
 
-            avatarRail={
-               <AvatarRail 
-                  step={ step }
-                  firstName={ firstName }
-                  lastName={ lastName }
-               />
-            }
+            {/* this is a bad class name */}
+            <div class="flex-container-heading">
+               {/* dynamic heading */}
+               {
+                  step > 1 && firstName 
+                     ?
+                     <h1>{firstName}'s Shrine</h1>
+                     :
+                     <h1> Create a New Shrine</h1>
+               }
 
-            formRail={
-               <div>
+               <p class="text-gray">
+                  Step {step} of 6
+               </p>
+            </div>
 
-                  {/* dynamic header */}
-                  {
-                     step > 1 && firstName 
-                        ?
-                        <h2 class="text-center">{firstName}'s Shrine</h2>
-                        :
-                        <h2 class="text-center"> Create a New Shrine</h2>
-                  }
+            <FlexContainer 
 
-                  <p class="text-center text-gray">
-                     Step {step} of 6
-                  </p>
+               avatarRail={
+                  <AvatarRail 
+                     step={ step }
+                     firstName={ firstName }
+                     lastName={ lastName }
+                  />
+               }
 
+               formRail={
                   <CreateShrineFormContainer
                      step={ step }
                      handleNextStep={ this._handleNextStep }
@@ -112,10 +115,11 @@ class CreateShrine extends Component {
                      deceased={ this.state.deceased }
                      handleDeath={ this._handleDeath }
                   />
-               </div>
-            }
+               }
 
-         />
+            />
+
+         </div>
 
       );
    }
