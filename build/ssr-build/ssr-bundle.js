@@ -896,13 +896,14 @@ var spectre_overide_default = /*#__PURE__*/__webpack_require__.n(spectre_overide
 // CONCATENATED MODULE: ./components/flex-container/index.js
 
 
-var flex_container__ref = Object(preact_min["h"])("div", { "class": "left-rail hide-xs" });
+var flex_container__ref = Object(preact_min["h"])("div", { "class": "left-rail hide-sm" });
 
-var _ref2 = Object(preact_min["h"])("div", { "class": "left-gutter" });
+var _ref2 = Object(preact_min["h"])("div", { "class": "left-gutter hide-md" });
 
-var _ref3 = Object(preact_min["h"])("div", { "class": "right-gutter" });
+var _ref3 = Object(preact_min["h"])("div", { "class": "right-gutter hide-md" });
 
 var flex_container_FlexContainer = function FlexContainer(props) {
+   var width = window.innerWidth || document.documentElement.clientWidth || document.body.client.width;
    return Object(preact_min["h"])(
       "div",
       { "class": "flex-container" },
@@ -910,7 +911,7 @@ var flex_container_FlexContainer = function FlexContainer(props) {
       _ref2,
       Object(preact_min["h"])(
          "div",
-         { "class": "avatar-rail hide-lg" },
+         { "class": width < 800 && !props.avatarRail ? "d-none" : "avatar-rail" },
          props.avatarRail
       ),
       Object(preact_min["h"])(
@@ -920,7 +921,7 @@ var flex_container_FlexContainer = function FlexContainer(props) {
       ),
       Object(preact_min["h"])(
          "div",
-         { "class": "dialog-rail hide-sm" },
+         { "class": "dialog-rail hide-md" },
          props.dialogRail
       ),
       _ref3
@@ -3452,37 +3453,45 @@ var avatar_rail_AvatarRail = function AvatarRail(props) {
             props.firstName
          )
       ),
-      avatar_rail__ref,
       Object(preact_min["h"])(
-         menu_MenuItem,
-         { 'class': props.step === 1 && "arrow-box" },
-         'Name'
+         'div',
+         { 'class': props.step <= 3 ? "" : "hide-sm" },
+         avatar_rail__ref,
+         Object(preact_min["h"])(
+            menu_MenuItem,
+            { 'class': props.step === 1 && "arrow-box" },
+            'Name'
+         ),
+         Object(preact_min["h"])(
+            menu_MenuItem,
+            { 'class': props.step === 2 && "arrow-box" },
+            'Photo'
+         ),
+         Object(preact_min["h"])(
+            menu_MenuItem,
+            { 'class': props.step === 3 && "arrow-box" },
+            'Information'
+         )
       ),
       Object(preact_min["h"])(
-         menu_MenuItem,
-         { 'class': props.step === 2 && "arrow-box" },
-         'Photo'
-      ),
-      Object(preact_min["h"])(
-         menu_MenuItem,
-         { 'class': props.step === 3 && "arrow-box" },
-         'Information'
-      ),
-      avatar_rail__ref2,
-      Object(preact_min["h"])(
-         menu_MenuItem,
-         { 'class': props.step === 4 && "arrow-box" },
-         'Invitation Template'
-      ),
-      Object(preact_min["h"])(
-         menu_MenuItem,
-         { 'class': props.step === 5 && "arrow-box" },
-         'Customize Invitation'
-      ),
-      Object(preact_min["h"])(
-         menu_MenuItem,
-         { 'class': props.step === 6 && "arrow-box" },
-         'Invite Collaborators'
+         'div',
+         { 'class': props.step > 3 ? "" : "hide-sm" },
+         avatar_rail__ref2,
+         Object(preact_min["h"])(
+            menu_MenuItem,
+            { 'class': props.step === 4 && "arrow-box" },
+            'Invitation Template'
+         ),
+         Object(preact_min["h"])(
+            menu_MenuItem,
+            { 'class': props.step === 5 && "arrow-box" },
+            'Customize Invitation'
+         ),
+         Object(preact_min["h"])(
+            menu_MenuItem,
+            { 'class': props.step === 6 && "arrow-box" },
+            'Invite Collaborators'
+         )
       )
    );
 };
@@ -3504,8 +3513,8 @@ function create_shrine__inherits(subClass, superClass) { if (typeof superClass !
 
 
 var create_shrine__ref = Object(preact_min["h"])(
-   'h2',
-   { 'class': 'text-center' },
+   'h1',
+   null,
    ' Create a New Shrine'
 );
 
@@ -3573,35 +3582,35 @@ var create_shrine_CreateShrine = function (_Component) {
       var firstName = this.state.firstName;
       var lastName = this.state.lastName;
 
-      return Object(preact_min["h"])(flex_container_FlexContainer, {
-
-         avatarRail: Object(preact_min["h"])(
+      return Object(preact_min["h"])(
+         'div',
+         null,
+         Object(preact_min["h"])(
             'div',
-            { 'class': 'm-2' },
-            Object(preact_min["h"])(avatar_rail_AvatarRail, {
-               step: step,
-               firstName: firstName,
-               lastName: lastName
-            })
-         ),
-
-         formRail: Object(preact_min["h"])(
-            'div',
-            { 'class': 'm-2' },
+            { 'class': 'flex-container-heading' },
             step > 1 && firstName ? Object(preact_min["h"])(
-               'h2',
-               { 'class': 'text-center' },
+               'h1',
+               null,
                firstName,
                '\'s Shrine'
             ) : create_shrine__ref,
             Object(preact_min["h"])(
                'p',
-               { 'class': 'text-center text-gray' },
+               { 'class': 'text-gray' },
                'Step ',
                step,
                ' of 6'
-            ),
-            Object(preact_min["h"])(create_shrine_form_container_CreateShrineFormContainer, {
+            )
+         ),
+         Object(preact_min["h"])(flex_container_FlexContainer, {
+
+            avatarRail: Object(preact_min["h"])(avatar_rail_AvatarRail, {
+               step: step,
+               firstName: firstName,
+               lastName: lastName
+            }),
+
+            formRail: Object(preact_min["h"])(create_shrine_form_container_CreateShrineFormContainer, {
                step: step,
                handleNextStep: this._handleNextStep,
                handlePrevStep: this._handlePrevStep,
@@ -3619,9 +3628,9 @@ var create_shrine_CreateShrine = function (_Component) {
                deceased: this.state.deceased,
                handleDeath: this._handleDeath
             })
-         )
 
-      });
+         })
+      );
    };
 
    return CreateShrine;
