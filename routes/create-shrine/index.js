@@ -71,17 +71,15 @@ class CreateShrine extends Component {
          <FlexContainer 
 
             avatarRail={
-               <div class="m-2">
-                  <AvatarRail 
-                     step={ step }
-                     firstName={ firstName }
-                     lastName={ lastName }
-                  />
-               </div>
+               <AvatarRail 
+                  step={ step }
+                  firstName={ firstName }
+                  lastName={ lastName }
+               />
             }
 
             formRail={
-               <div class="m-2">
+               <div>
 
                   {/* dynamic header */}
                   {

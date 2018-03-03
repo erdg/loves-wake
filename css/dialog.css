@@ -5,11 +5,11 @@
    line-height: 1.2;
 }
 
-@media (min-width: 800px) {
+@media (min-width: 960px) {
    .dialog {
       position: absolute;
       top: 0px;
-      left: 316px;
+      left: 328px;
       font-weight: normal;
       word-wrap: normal;
       width: 100%;
