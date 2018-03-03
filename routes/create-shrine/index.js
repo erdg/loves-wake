@@ -70,7 +70,6 @@ class CreateShrine extends Component {
 
          <div>
 
-            {/* this is a bad class name */}
             <div class="flex-container-heading">
                {/* dynamic heading */}
                {
